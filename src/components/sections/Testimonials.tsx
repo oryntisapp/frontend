@@ -51,6 +51,7 @@ export default function Testimonials() {
 
   return (
     <section
+      id="testimonials"
       className="relative z-10 mx-auto max-w-5xl px-6 py-24 sm:py-32 lg:px-8"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}

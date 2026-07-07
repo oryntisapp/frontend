@@ -4,7 +4,7 @@ import Button from "../ui/Button";
 import { primaryCTA } from "../../lib/tokens";
 
 const COLUMNS = [
-  { title: "Company", links: [{ label: "About Oryntis", href: "/#" }, { label: "Careers", href: "/#" }, { label: "Contact Sales", href: "/#pricing" }] },
+  { title: "Company", links: [{ label: "About", href: "/#about" }, { label: "Contact Sales", href: "/#contact" }] },
   {
     title: "Product",
     links: [
@@ -12,11 +12,11 @@ const COLUMNS = [
       { label: "Workflow Intelligence", href: "/#pillars" },
       { label: "Business Automation", href: "/#pillars" },
       { label: "Integration & Data Layer", href: "/#pillars" },
-      { label: "Operations Command Dashboard", href: "/dashboard", route: true },
+      { label: "Operations Command Dashboard", href: "/#dashboard-preview" },
     ],
   },
-  { title: "Resources", links: [{ label: "Docs & API", href: "/#docs" }, { label: "Security", href: "/#pricing" }, { label: "Pricing", href: "/#pricing" }] },
-  { title: "Contact", links: [{ label: "hello@oryntisapp.com", href: "mailto:hello@oryntisapp.com" }, { label: "Colombo, Sri Lanka", href: "/#" }] },
+  { title: "Resources", links: [{ label: "Pricing", href: "/#pricing" }, { label: "Blog", href: "/blog", route: true }] },
+  { title: "Contact", links: [{ label: "hello@oryntisapp.com", href: "mailto:hello@oryntisapp.com" }, { label: "525 Market St, San Francisco, CA", href: "/#contact" }, { label: "+1 (415) 555-2117", href: "tel:+14155552117" }] },
 ];
 
 export default function Footer() {
@@ -60,8 +60,8 @@ export default function Footer() {
           <span>© {new Date().getFullYear()} Oryntis. All rights reserved.</span>
         </div>
         <div className="flex items-center gap-6">
-          <a href="#" className="hover:text-foreground">Privacy</a>
-          <a href="#" className="hover:text-foreground">Terms</a>
+          <Link to="/privacy" className="hover:text-foreground">Privacy Policy</Link>
+          <Link to="/terms" className="hover:text-foreground">Terms &amp; Conditions</Link>
           <div className="flex items-center gap-3">
             <a href="mailto:hello@oryntisapp.com" aria-label="Email us" className="hover:text-foreground"><Mail className="h-4 w-4" /></a>
             <a href="#" aria-label="LinkedIn" className="hover:text-foreground"><Linkedin className="h-4 w-4" /></a>

@@ -17,11 +17,11 @@ export interface NavLink {
 // would otherwise be a dead-end click, which the functional requirements
 // explicitly rule out.
 const LINKS: NavLink[] = [
-  { label: "Platform", href: "/#pillars" },
-  { label: "Dashboard", href: "/dashboard", route: true },
+  { label: "Home", href: "/", route: true },
+  { label: "Testimonials", href: "/#testimonials" },
   { label: "Pricing", href: "/#pricing" },
-  { label: "FAQ", href: "/#faq" },
-  { label: "Product", href: "/product", route: true },
+  { label: "About", href: "/#about" },
+  { label: "Contact", href: "/#contact" },
 ];
 
 export default function Navbar() {

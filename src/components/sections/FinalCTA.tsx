@@ -10,7 +10,7 @@ import { primaryCTA, primaryCTARoute } from "../../lib/tokens";
 const MICRO_LINKS: ({ label: string; to: string } | { label: string; href: string })[] = [
   { label: "Talk to Sales", to: "/product" },
   { label: "View Pricing", href: "#pricing" },
-  { label: "See the Dashboard", to: "/dashboard" },
+  { label: "See the Dashboard", href: "#dashboard-preview" },
 ];
 
 export default function FinalCTA() {

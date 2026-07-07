@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
-import { Link } from "react-router-dom";
 import SectionHeading from "../ui/SectionHeading";
 import ConnectionsWidget from "../dashboard/ConnectionsWidget";
 import AIProcessWidget from "../dashboard/AIProcessWidget";
@@ -11,13 +10,13 @@ export default function DashboardPreview() {
     <section id="dashboard-preview" className="relative z-10 mx-auto max-w-7xl px-6 py-24 sm:py-32 lg:px-8">
       <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-end">
         <SectionHeading eyebrow="Operations Command Dashboard" headline="Everything running, visible in one place" />
-        <Link
-          to="/dashboard"
+        <button
+          onClick={() => document.getElementById("dashboard-preview")?.scrollIntoView({ behavior: "smooth" })}
           className="group flex shrink-0 items-center gap-1.5 text-sm font-medium text-accent transition-colors hover:text-accent-bright"
         >
           See Full Dashboard
           <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-        </Link>
+        </button>
       </div>
 
       <motion.div

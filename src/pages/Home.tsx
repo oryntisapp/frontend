@@ -7,7 +7,9 @@ import AutomationShowcase from "../components/sections/AutomationShowcase";
 import Pricing from "../components/sections/Pricing";
 import FAQ from "../components/sections/FAQ";
 import WhoItsFor from "../components/sections/WhoItsFor";
+import About from "../components/sections/About";
 import Testimonials from "../components/sections/Testimonials";
+import Contact from "../components/sections/Contact";
 import PlatformShowcase from "../components/sections/PlatformShowcase";
 import FinalCTA from "../components/sections/FinalCTA";
 
@@ -23,7 +25,9 @@ export default function Home() {
       <Pricing />
       <FAQ />
       <WhoItsFor />
+      <About />
       <Testimonials />
+      <Contact />
       <PlatformShowcase />
       <FinalCTA />
     </>
