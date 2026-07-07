@@ -6,6 +6,10 @@ import { useReducedMotion } from "../../hooks/useReducedMotion";
 const MODEL_URL = new URL("../../assets/models/robot.glb", import.meta.url).href;
 const HARD_CAP_MS = 2500;
 
+function timeout(ms: number) {
+  return new Promise<void>((resolve) => setTimeout(resolve, ms));
+}
+
 export default function Preloader({ onDone }: { onDone: () => void }) {
   const [progress, setProgress] = useState(0);
   const [exiting, setExiting] = useState(false);
@@ -16,38 +20,31 @@ export default function Preloader({ onDone }: { onDone: () => void }) {
     const start = performance.now();
     let raf: number;
 
-    const fontsReady = document.fonts ? document.fonts.ready : Promise.resolve();
-    const modelReady = new Promise<void>((resolve) => {
-      try {
-        useGLTF.preload(MODEL_URL);
-      } catch {
-        // ignore
-      }
-      resolve();
+    const fontsReady = (document.fonts ? document.fonts.ready : Promise.resolve()).catch((err) => {
+      console.warn("[Preloader] font loading rejected, continuing anyway:", err);
     });
+
+    const modelReady = Promise.resolve(useGLTF.preload(MODEL_URL)).catch((err) => {
+      console.warn("[Preloader] robot.glb preload rejected, continuing with fallback:", err);
+    });
+
+    const assetsReady = Promise.allSettled([fontsReady, modelReady]).then(() => {});
 
     const tick = () => {
       const elapsed = performance.now() - start;
       const pct = Math.min(96, (elapsed / HARD_CAP_MS) * 100);
       if (!cancelled) setProgress(pct);
-      if (elapsed < HARD_CAP_MS) raf = requestAnimationFrame(tick);
+      if (elapsed < HARD_CAP_MS && !cancelled) raf = requestAnimationFrame(tick);
     };
     raf = requestAnimationFrame(tick);
 
-    Promise.all([fontsReady, modelReady]).then(() => {
-      if (cancelled) return;
-      setProgress(100);
+    Promise.race([assetsReady, timeout(HARD_CAP_MS)]).then(() => {
+      if (!cancelled) setProgress(100);
     });
-
-    const hardCap = setTimeout(() => {
-      if (cancelled) return;
-      setProgress(100);
-    }, HARD_CAP_MS);
 
     return () => {
       cancelled = true;
       cancelAnimationFrame(raf);
-      clearTimeout(hardCap);
     };
   }, []);
 
@@ -78,15 +75,9 @@ export default function Preloader({ onDone }: { onDone: () => void }) {
           transition={{ duration: 0.2 }}
           className="flex flex-col items-center gap-6"
         >
-          <span className="font-mono text-lg tracking-tight text-foreground">
-            Oryntis
-          </span>
+          <span className="font-mono text-lg tracking-tight text-foreground">Oryntis</span>
           <div className="h-[2px] w-56 overflow-hidden rounded-full bg-white/10">
-            <motion.div
-              className="h-full bg-accent"
-              style={{ width: `${progress}%` }}
-              transition={{ ease: "linear" }}
-            />
+            <motion.div className="h-full bg-accent" style={{ width: `${progress}%` }} transition={{ ease: "linear" }} />
           </div>
           <span className="font-mono text-xs tracking-widest text-foreground-subtle">
             {Math.floor(progress).toString().padStart(2, "0")}%

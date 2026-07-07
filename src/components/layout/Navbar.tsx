@@ -20,6 +20,7 @@ const LINKS: NavLink[] = [
   { label: "Platform", href: "/#pillars" },
   { label: "Dashboard", href: "/dashboard", route: true },
   { label: "Pricing", href: "/#pricing" },
+  { label: "FAQ", href: "/#faq" },
   { label: "Product", href: "/product", route: true },
 ];
 

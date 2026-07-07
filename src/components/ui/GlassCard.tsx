@@ -8,11 +8,6 @@ interface GlassCardProps {
   interactive?: boolean;
 }
 
-/**
- * Card-local spotlight tracking (Section 5.1): each card tracks the pointer only while
- * hovered, writing local percentage coordinates into CSS custom properties so the glow
- * moves via CSS, not per-frame React state.
- */
 export default function GlassCard({ children, className = "", interactive = true }: GlassCardProps) {
   const ref = useRef<HTMLDivElement>(null);
   const raf = useRef<number | null>(null);
@@ -45,11 +40,11 @@ export default function GlassCard({ children, className = "", interactive = true
           className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
           style={{
             background:
-              "radial-gradient(300px circle at var(--x, 50%) var(--y, 50%), rgba(94,106,210,0.15), transparent 70%)",
+              "radial-gradient(320px circle at var(--x, 50%) var(--y, 50%), rgba(177,62,217,0.18), transparent 70%)",
           }}
         />
       )}
-      <div className="relative z-10">{children}</div>
+      <div className="relative z-10 h-full">{children}</div>
     </motion.div>
   );
 }

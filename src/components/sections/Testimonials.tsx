@@ -2,7 +2,10 @@ import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Star } from "lucide-react";
 import SectionHeading from "../ui/SectionHeading";
+import TiltCard from "../ui/TiltCard";
 import { crossfadeSlide } from "../../lib/motionVariants";
+
+const PORTRAIT_URL = new URL("../../assets/images/hero-portrait.jpeg", import.meta.url).href;
 
 const TESTIMONIALS = [
   {
@@ -48,7 +51,7 @@ export default function Testimonials() {
 
   return (
     <section
-      className="relative z-10 mx-auto max-w-4xl px-6 py-24 text-center sm:py-32 lg:px-8"
+      className="relative z-10 mx-auto max-w-5xl px-6 py-24 sm:py-32 lg:px-8"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
       onFocus={() => setPaused(true)}
@@ -56,7 +59,7 @@ export default function Testimonials() {
     >
       <SectionHeading eyebrow="What Operations Leaders Say" headline="Don't just take our word for it" align="center" className="mx-auto" />
 
-      <div className="relative mt-14 min-h-[220px]">
+      <div className="relative mt-14">
         <AnimatePresence mode="wait">
           <motion.div
             key={index}
@@ -64,20 +67,32 @@ export default function Testimonials() {
             initial="initial"
             animate="animate"
             exit="exit"
-            className="absolute inset-x-0"
           >
-            <p className="text-xl font-medium leading-relaxed text-foreground sm:text-2xl">
-              “{current.quote}”
-            </p>
-            <div className="mt-8 flex flex-col items-center gap-2">
-              <div className="flex text-accent">
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <Star key={i} className="h-3.5 w-3.5 fill-current" />
-                ))}
+            <TiltCard maxTilt={6} className="flex flex-col overflow-hidden sm:flex-row">
+              <div className="relative aspect-[3/4] w-full shrink-0 sm:w-[40%]">
+                <img
+                  src={PORTRAIT_URL}
+                  alt={current.name}
+                  className="h-full w-full object-cover object-[50%_20%]"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-background-base/60 via-transparent to-transparent sm:bg-gradient-to-r sm:from-transparent sm:via-transparent sm:to-background-base/40" />
               </div>
-              <p className="text-sm font-medium text-foreground">{current.name}</p>
-              <p className="text-xs text-foreground-muted">{current.role}</p>
-            </div>
+              <div className="flex flex-1 flex-col justify-center p-8 sm:p-10">
+                <div className="flex text-accent">
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <Star key={i} className="h-3.5 w-3.5 fill-current" />
+                  ))}
+                </div>
+                <p className="mt-5 text-xl font-medium leading-relaxed text-foreground sm:text-2xl">
+                  &ldquo;{current.quote}&rdquo;
+                </p>
+                <div className="mt-6">
+                  <p className="text-sm font-medium text-foreground">{current.name}</p>
+                  <p className="text-xs text-foreground-muted">{current.role}</p>
+                </div>
+              </div>
+            </TiltCard>
           </motion.div>
         </AnimatePresence>
       </div>

@@ -7,7 +7,7 @@ import { primaryCTA, primaryCTARoute } from "../../lib/tokens";
 // Each link now goes to what it actually says — previously all three ("Talk to Sales",
 // "View Pricing", "Read the Docs") pointed at the same "#pricing" anchor regardless of
 // label, and "Read the Docs" pointed at a section that's being removed in this update.
-const MICRO_LINKS = [
+const MICRO_LINKS: ({ label: string; to: string } | { label: string; href: string })[] = [
   { label: "Talk to Sales", to: "/product" },
   { label: "View Pricing", href: "#pricing" },
   { label: "See the Dashboard", to: "/dashboard" },

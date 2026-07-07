@@ -57,7 +57,7 @@ export default function RobotCanvas({ mouse, heroInView, reducedMotion, onFallba
     <CanvasErrorBoundary onError={onFallback} fallback={<HeroPortrait mouse={mouse} />}>
       <Canvas
         dpr={[1, 1.75]}
-        camera={{ position: [0, 1.1, 3.4], fov: 32 }}
+        camera={{ position: [0, 0.85, 4.8], fov: 34 }}
         gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
         style={{ background: "transparent" }}
       >

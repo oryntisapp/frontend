@@ -67,7 +67,7 @@ export function useGazeController({
 
     if (mouse.inside.current) {
       yaw = THREE.MathUtils.clamp(mouse.nx.current, -1, 1) * maxYaw;
-      pitch = THREE.MathUtils.clamp(mouse.ny.current, -1, 1) * maxPitch;
+      pitch = -THREE.MathUtils.clamp(mouse.ny.current, -1, 1) * maxPitch;
     }
     // if pointer left the window, yaw/pitch fall back to 0 → neutral resting rotation
 
