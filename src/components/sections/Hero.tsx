@@ -15,7 +15,7 @@ const CALLOUTS: CalloutData[] = [
   {
     top: "20%",
     left: "52%",
-    label: "AI Operations Engine",
+    label: "Core Operations Engine",
     description: "Coordinates work across every department.",
     direction: "right",
     delay: 0.2,
@@ -120,7 +120,7 @@ export default function Hero({ preloaderDone }: { preloaderDone: boolean }) {
               className="mb-6 flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-accent"
             >
               <span className="h-1.5 w-1.5 rounded-full bg-accent shadow-[0_0_8px_2px_rgba(177,62,217,0.6)]" />
-              AI Business Operations Platform
+              The Business Operations Platform
             </motion.span>
 
             <h1 className="text-4xl font-semibold leading-[1.05] tracking-[-0.03em] sm:text-6xl lg:text-7xl">
@@ -148,9 +148,7 @@ export default function Hero({ preloaderDone }: { preloaderDone: boolean }) {
               transition={{ duration: 0.6, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
               className="mt-6 max-w-md text-lg text-foreground-muted"
             >
-              Oryntis unifies your finance, HR, sales, and operations systems into a single
-              AI-powered layer — automating the busywork and giving your team real-time
-              visibility into what's actually happening.
+              Oryntis unifies your finance, HR, sales, and operations systems into a single intelligent layer, automating the busywork and giving your team real time visibility into what's actually happening.
             </motion.p>
 
             <motion.div

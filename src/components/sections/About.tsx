@@ -32,9 +32,7 @@ export default function About() {
             made on stale information.
           </p>
           <p className="mt-4 text-base leading-relaxed text-foreground-muted sm:text-lg">
-            We built an AI-powered operations platform that sits across every department —
-            unifying systems, automating workflows, and giving your team one real-time view
-            of what's actually happening.
+            We built an intelligent operations platform that sits across every department, unifying systems, automating workflows, and giving your team one real time view of what's actually happening.
           </p>
           <div className="mt-6 flex items-center gap-4 text-sm text-foreground-subtle">
             <span className="font-mono tracking-wide">Charlotte Evans</span>

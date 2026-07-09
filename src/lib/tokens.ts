@@ -35,6 +35,6 @@ export const motion = {
   scrollRevealThreshold: 0.18,
 } as const;
 
-export const primaryCTA = "Explore Platform";
+export const primaryCTA = "Oryntis OS";
 export const primaryCTARoute = "/product";
 export const secondaryCTA = "See the Dashboard";

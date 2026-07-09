@@ -10,7 +10,7 @@ const SECTIONS = [
   },
   {
     title: "2. Description of Service",
-    body: 'The Oryntis Platform provides an AI-powered operations layer consisting of the AI Operations Engine, Workflow Intelligence System, Business Automation Layer, Integration & Data Layer, and Operations Command Dashboard — collectively referred to as the "Service." The Service is designed to connect to your existing ERP, CRM, HR, and finance systems and automate cross-functional workflows. Detailed descriptions of each component are available on our website.',
+    body: 'The Oryntis Platform provides an AI-powered operations layer consisting of the Core Operations Engine, Workflow Intelligence System, Business Automation Layer, Integration & Data Layer, and Operations Command Dashboard — collectively referred to as the "Service." The Service is designed to connect to your existing ERP, CRM, HR, and finance systems and automate cross-functional workflows. Detailed descriptions of each component are available on our website.',
   },
   {
     title: "3. Accounts",

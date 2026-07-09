@@ -19,8 +19,7 @@ const TIERS: Tier[] = [
   {
     name: "Starter",
     positioning: "Prove value with a single team",
-    price: "$X,XXX/mo",
-    priceNote: "illustrative — confirm with client",
+    price: "$99/mo",
     cta: "Contact Sales",
     features: [
       "Core Operations Dashboard",
@@ -33,8 +32,7 @@ const TIERS: Tier[] = [
   {
     name: "Growth",
     positioning: "Scale automation across the operations function",
-    price: "$X,XXX/mo",
-    priceNote: "illustrative — confirm with client",
+    price: "$249/mo",
     cta: "Contact Sales",
     highlighted: true,
     features: [
@@ -49,8 +47,7 @@ const TIERS: Tier[] = [
   {
     name: "Enterprise",
     positioning: "Organization-wide operations automation",
-    price: "$X,XXX/mo",
-    priceNote: "illustrative — confirm with client",
+    price: "$799/mo",
     cta: "Contact Sales",
     features: [
       "Everything in Growth",

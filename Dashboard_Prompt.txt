@@ -1,0 +1,159 @@
+# Oryntis — Admin / Operations Dashboard
+## Master Build Prompt (Companion to the Landing Page Prompt) — Paste-Ready for Claude / Claude Code
+
+> **How to use this document:** This is a complete, self-contained build prompt for the **authenticated dashboard application** — the product itself, not the marketing site. It assumes the landing-page project (React + Vite + TypeScript + Tailwind + Framer Motion, with the violet/magenta gradient design system already established) exists or will exist as a sibling — this prompt reuses that exact visual language rather than inventing a new one, so the two feel like one product. If you're starting this as a brand-new repo instead of adding to the existing one, say so explicitly to whoever builds this, since Section 1 assumes the design tokens already exist and just need to be copied over.
+
+---
+
+## 0. What This Prompt Is Built From
+
+An attached reference image shows a crypto-casino platform's dashboard (sidebar navigation, top bar with search/auth buttons, a row of promotional hero cards, a bento-style grid of feature tiles, and a bottom row of activity/summary widgets). **Only the layout skeleton is being reused** — the sidebar-plus-topbar-plus-bento-grid structure, the information density, the card treatment. None of the casino-specific content (bonuses, countdowns to a prize race, deposit promos, game providers) carries over. Every slot in that layout gets replaced with the real content this product actually needs, mapped out explicitly in Section 4.
+
+---
+
+## 1. Brand & Company Facts (for footer, legal pages, and account/billing screens)
+
+- **Product:** Oryntis — AI Business Operations Platform
+- **Company legal name:** Oryntis App Technologies Inc.
+- **Founder:** Charlotte Evans
+- **Founded:** January 17, 2024
+- **Registered address:** 525 Market Street, San Francisco, CA 94102, USA
+- **Phone:** +1 (415) 555-2117
+- **Domain:** oryntisapp.com
+
+Use these exact facts anywhere the dashboard needs to display company identity (billing invoices, the account settings "About" panel, legal footer links) — don't invent a different founder name, address, or founding date anywhere in generated copy.
+
+**Design system:** reuse the existing token set exactly — `background-void #000000/#030303`, `background-base #050308`, `background-elevated #0C0A14`, `gradient-highlight #E16CF1`, `gradient-vivid #B13ED9`, `gradient-deep #6013A1`, `gradient-indigo #18044B`, `reflection-light #96A7B9`, `reflection-mid #657285`, `foreground #F3F1F7`, `foreground-muted #9D97AE`, `success #3DD68C`, `warning #F0BB2F`, `danger #E14F4F`. Same radius scale, same multi-layer shadow formula, same `expo-out` easing curve, same glassmorphic card construction. If this is a separate repo from the landing page, copy the `tailwind.config` token extensions over verbatim rather than re-deriving them.
+
+---
+
+## 2. Tech Stack Additions (on top of the existing Vite/React/Tailwind/Framer Motion stack)
+
+- **Authentication & user data:** Firebase — `firebase/auth` for sign-in/sign-up/session state, `firebase/firestore` (or a lightweight alternative if you prefer) for storing user profile fields Firebase Auth doesn't natively hold (company name, role, onboarding status), `firebase/storage` only if avatar upload is in scope.
+- **Config:** a single `src/lib/firebase.ts` module that reads all config values from Vite env vars (`import.meta.env.VITE_FIREBASE_API_KEY`, `VITE_FIREBASE_AUTH_DOMAIN`, `VITE_FIREBASE_PROJECT_ID`, `VITE_FIREBASE_APP_ID`, etc.) — never hardcode the config object inline, even though these particular values are safe to expose client-side; keeping them in `.env` is still correct practice for environment management (dev/staging/prod projects) and keeps the repo portable. Add a `.env.example` with empty placeholders so it's obvious what needs to be filled in.
+- **Routing:** React Router, with a clear split between a public route tree (`/login`, `/signup`, `/forgot-password`) and a protected route tree (everything under `/dashboard/*`).
+- **Forms:** same lightweight validation approach as the landing page — plain controlled state or `zod` if it's already a dependency; no need for a heavy form library for the handful of forms this needs (login, signup, forgot password, profile edit, change password).
+
+---
+
+## 3. Global Layout (translating the reference image's structure)
+
+### 3.1 Sidebar (left, fixed, collapsible on smaller viewports)
+- **Top:** Oryntis mark + wordmark (same as the navbar logo treatment on the landing page).
+- **Primary nav** (icon + label, active item gets a `gradient-vivid` left-border accent + subtle `background-elevated` fill, exactly mirroring how the reference image highlights its active "Home" item):
+  - Overview
+  - Workflows
+  - Integrations
+  - Analytics
+  - Automation Log
+  - Team
+- **Secondary/expandable group** near the bottom (mirroring the reference's collapsible "Promotions" menu — same interaction pattern, different content): **Settings**, expanding to reveal Profile, Security, Billing, Notifications as sub-items when clicked, collapsed by default.
+- **Bottom of sidebar:** a compact account card — avatar (photo if the user signed in with Google and has one, otherwise initials on a `gradient-vivid` circle), display name, plan tier (`Starter` / `Growth` / `Enterprise`), clicking it opens the same account menu as the topbar avatar (Section 3.2) — don't build two separate account-menu implementations, share one component.
+- Collapses to icon-only on tablet widths, and becomes a slide-over drawer (same `AnimatePresence` pattern as the landing page's mobile nav) below `768px`.
+
+### 3.2 Top bar
+- **Left:** a real, working search input (searches across workflow names, integration names, and team members — client-side filtering against already-loaded data is fine for v1, no need for a search backend).
+- **Right:** a notification bell (badge count, opens a dropdown panel listing recent system notices — automation failures, plan-limit warnings, teammate invites), and an **account avatar with dropdown** (Profile, Settings, Sign out) replacing the reference image's "Sign In / Sign Up" buttons, since a signed-in dashboard never shows auth buttons in its own top bar.
+
+### 3.3 Overview page hero row (translating the reference's promo-card row)
+Three cards, same visual weight and card treatment as the reference's three hero tiles, content replaced entirely:
+1. **Getting Started** card (stands in for "Welcome Bonus") — a short onboarding checklist (Connect your first system → Create a workflow → Invite your team), each step togglable/checkable, a progress ring or fraction (`2/4 complete`), primary button `Continue Setup` routing to whichever step isn't done yet.
+2. **Usage This Month** card (stands in for "Holiday Rush") — current automation-task usage against the plan's included allowance (e.g. `8,240 / 10,000 tasks`), a slim progress bar using `gradient-vivid`, and a ghost button `View Plan` routing to Billing.
+3. **Plan Renewal** card (stands in for the "XMas Race" countdown) — a real countdown to the next billing date (days/hours, same visual countdown-tile treatment as the reference), with the current plan name and a `Manage Billing` link.
+
+### 3.4 Main bento grid (translating the reference's Casino/Sports/Lottery/Bingo grid)
+This is where the actual BA-scope dashboard widgets live — same asymmetric bento sizing as the reference (one large tile, several smaller ones), mapped directly from the project brief's three required widgets:
+- **Large tile — Widget A, Connected Systems:** a list/grid of connected sources (ERP, CRM, HR, finance tools, sales/marketing platforms, internal databases, communication systems), each with a status pill (Connected / Syncing / Needs Attention), last-synced time, and a `+ Connect a system` action that opens the Integrations page's connect flow.
+- **Medium tile — Widget B, AI Process Visualizer:** the animated pipeline visualization (ingestion → AI operations layer → process optimization → automation execution), explicitly labeled **"Powered by NVIDIA SDK."** exactly as the BA scope requires — reuse the same traveling-packet-along-a-path animation technique already built for the landing page's Architecture section, restyled to fit a smaller card.
+- **Medium tile — Widget C, Infrastructure Health:** active workflows count, automation success rate, system latency, API utilization, operational efficiency score, task completion metrics, department-level performance — color-coded with `success`/`warning`/`danger`, not uniformly green.
+
+### 3.5 Lower row (translating the reference's recent-win / deposit-bonus / providers row)
+- **Recent Activity** (stands in for "Recent Big Win") — reuse the exact live-updating feed component/pattern already built for the landing page's "Automation in Motion" section (new items sliding in, oldest fading out) — this is the same component doing real duty here instead of marketing decoration, which is exactly the kind of reuse that makes a product feel coherent rather than like two different builds bolted together.
+- **This Month's Summary** (stands in for "300% Deposit Bonus") — a compact billing/usage summary card: current plan, next invoice amount and date, a `View Invoices` link.
+- **Connected Integrations logos row** (stands in for the "Providers" row) — small monochrome-at-rest logos of connected third-party tools, brightening on hover, horizontally scrollable if there are more than fit.
+
+---
+
+## 4. Full Route Map
+
+**Public (unauthenticated) routes:**
+- `/login`
+- `/signup`
+- `/forgot-password`
+
+**Protected routes (redirect to `/login` if not authenticated, preserving the intended destination so login redirects back to it):**
+- `/dashboard` — Overview (Section 3.3 + 3.4 + 3.5)
+- `/dashboard/workflows` — list + create/edit workflow
+- `/dashboard/integrations` — connect/disconnect systems, matching Widget A's source list
+- `/dashboard/analytics` — deeper charts behind the Overview's summary numbers
+- `/dashboard/automation-log` — the full live/historical automation event feed (Overview's Recent Activity is a preview of this page)
+- `/dashboard/team` — invite/manage teammates and their roles
+- `/dashboard/settings` — general account/workspace settings
+- `/dashboard/settings/profile` — Section 5.1
+- `/dashboard/settings/security` — Section 5.2
+- `/dashboard/settings/billing` — plan, payment method, invoice history
+
+**Reverse-guard:** an already-authenticated user hitting `/login`, `/signup`, or `/forgot-password` should be redirected straight to `/dashboard`, not shown the auth form again.
+
+---
+
+## 5. Firebase Authentication — Full Specification
+
+### 5.1 Auth methods required
+- **Email/password** sign-up and sign-in.
+- **Google sign-in** via `GoogleAuthProvider` + `signInWithPopup` (with a `signInWithRedirect` fallback path for browsers/webviews that block popups — detect the popup-blocked error and fall back automatically rather than just failing silently).
+- **Forgot password** via `sendPasswordResetEmail`.
+- **Session persistence** via Firebase's default `onAuthStateChanged` listener, wrapped in a single `AuthContext`/`AuthProvider` at the app root exposing `{ user, loading, signIn, signUp, signInWithGoogle, signOut, sendPasswordReset }` — every screen reads auth state from this context, nothing re-implements its own Firebase calls.
+
+### 5.2 Auth screen requirements
+- `/login`: email + password fields (with a show/hide password toggle), `Sign In` button, `Continue with Google` button (secondary style, Google's standard "G" mark, not a generic OAuth icon — brand guidelines matter here, don't reskin Google's logo), a `Forgot password?` link, and a `Don't have an account? Sign up` link. Real inline validation (invalid email format, empty fields) and real Firebase error mapping to plain-English messages (e.g. `auth/wrong-password` / `auth/user-not-found` → "That email or password doesn't look right," not the raw Firebase error code).
+- `/signup`: name + email + password + confirm-password, same Google option, real password-strength/match validation, and — since this maps to the BA scope's pricing tiers — an optional pre-selected plan carried in via query param (e.g. arriving from a pricing page's "Start on Growth" button) so signup can say `Signing up for the Growth plan` instead of being generic.
+- `/forgot-password`: single email field, sends the reset email, shows a clear "check your inbox" confirmation state instead of silently succeeding with no feedback.
+- All three screens share the same visual treatment: a centered glass card on the existing ambient-gradient background (reuse the landing page's `AmbientBlobs`/gradient-orb background system so auth pages don't look like a different, unbranded product), Oryntis logo above the card, a link back to the marketing site beneath it.
+
+### 5.3 Profile management (`/dashboard/settings/profile`)
+- Editable display name, avatar (Google photo if signed in via Google, otherwise an initials avatar with an optional upload if Firebase Storage is in scope), and email address.
+- **Email changes require re-authentication** — Firebase requires a recent sign-in for sensitive account changes; prompt the user to re-enter their password (or re-trigger the Google popup) before calling `verifyBeforeUpdateEmail`, and show a clear "why am I being asked this" microcopy line so it doesn't feel like a bug.
+- Save state feedback: a real success/error toast or inline confirmation on save, not a silent no-op.
+
+### 5.4 Security settings (`/dashboard/settings/security`)
+- **Change password** — only shown/enabled if the user actually has the `password` provider linked (a Google-only account has no password to change). For password-provider users: current password + new password + confirm, requiring re-authentication via `reauthenticateWithCredential` before calling `updatePassword` — Firebase will reject the update otherwise, so build the re-auth step in from the start rather than discovering the requirement via a runtime error later.
+- **Connected accounts** — show Google as either "Connected" (with an `Unlink` action, disabled if it's the user's *only* sign-in method, since unlinking their last provider would lock them out — show a clear explanation if disabled) or "Not connected" (with a `Connect Google` action using `linkWithPopup` to add it to an existing email/password account).
+- **Danger zone** — `Delete Account`, behind a real confirmation modal (type the word "delete" or re-enter password to confirm), calling Firebase's `deleteUser` after re-authentication.
+
+### 5.5 Error handling patterns to build once, reuse everywhere
+Write one small `mapFirebaseError(code: string): string` utility covering the common codes (`auth/email-already-in-use`, `auth/weak-password`, `auth/wrong-password`, `auth/user-not-found`, `auth/popup-closed-by-user`, `auth/account-exists-with-different-credential`, `auth/requires-recent-login`, `auth/too-many-requests`) and use it in every auth-related form's error state — don't let raw Firebase error strings reach the UI anywhere.
+
+---
+
+## 6. Functional Requirements (Carried Forward, Now Applied to the Dashboard)
+
+Every rule from the landing page's functional addendum applies here too, with dashboard-specific emphasis:
+
+- **Every sidebar item, topbar control, widget CTA, and settings action must perform a real action.** No decorative "Connect a system" button that doesn't open a real (even if mocked) connect flow; no notification bell that doesn't actually open a panel; no avatar dropdown item that doesn't navigate or execute (Sign Out must actually call Firebase's `signOut` and redirect to `/login`, not just close a menu).
+- **Search must actually filter.** If it's not wired to real filtering logic yet, don't ship it as a static input — either wire it to client-side filtering against loaded data, or don't include it in this build pass.
+- **Every settings save button must show a real result** (success, or a real error state) — this is doubly important on auth-adjacent forms, since a silent failure on "change password" is a trust-destroying bug, not a cosmetic one.
+- **The onboarding checklist's `Continue Setup` button must route to the actual next incomplete step**, not always to the same place.
+
+---
+
+## 7. `.htaccess` for SPA Routing (Same Requirement as the Landing Page, Restated)
+
+Because this dashboard adds several new deep routes (`/dashboard/settings/security`, etc.), the SPA-routing `.htaccess` requirement matters even more here than on the marketing site — a direct link to a nested settings page, or a password-reset email linking to `/login` with a query param, must survive a hard refresh. Place `.htaccess` in `/public` so it survives every build, with the same rules as before: rewrite non-file/non-directory requests to `index.html`, force HTTPS, long-lived caching on hashed assets, short/no-cache on `index.html`, correct MIME types. If this dashboard is deployed as a **separate subdomain or subpath** from the marketing site (e.g. `app.oryntisapp.com` vs `oryntisapp.com`), make sure `vite.config.ts`'s `base` and the `.htaccess` rewrite both match wherever it actually lives — test the same four-part check (direct load, client-nav, hard refresh, fresh-URL paste) against a genuinely nested route like `/dashboard/settings/security`, not just the root.
+
+---
+
+## 8. Final QA Checklist
+
+1. Sign up with email/password, confirm the account actually appears in the Firebase console, and confirm the onboarding checklist starts at 0/4.
+2. Sign in with Google on a fresh account, confirm the avatar and name populate correctly from the Google profile, and confirm signing out and back in with Google returns to the same account (not a duplicate).
+3. Trigger "Forgot password," confirm the reset email arrives, and confirm the new password actually works afterward.
+4. Attempt to change password on a Google-only account — confirm the UI correctly shows "set a password" (or hides the change-password form) rather than erroring.
+5. Attempt to unlink Google when it's the only linked provider — confirm this is blocked with a clear explanation, not a silent failure or an account lockout.
+6. Hard-refresh on `/dashboard/settings/security` directly — confirms both the auth persistence and the `.htaccess` routing fix are both working together correctly.
+7. Log out — confirm every protected route immediately redirects to `/login`, and confirm `/login` itself redirects an already-logged-in user straight to `/dashboard`.
+8. Full keyboard pass through the sidebar, topbar dropdown, and all three auth screens.
+
+---
+
+*End of build prompt. Pair this with the existing landing-page master prompt — together they define the full Oryntis product surface, sharing one design system, one brand voice, and one set of engineering standards.*

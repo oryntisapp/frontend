@@ -8,7 +8,7 @@ const COLUMNS = [
   {
     title: "Product",
     links: [
-      { label: "AI Operations Engine", href: "/#pillars" },
+      { label: "Core Operations Engine", href: "/#pillars" },
       { label: "Workflow Intelligence", href: "/#pillars" },
       { label: "Business Automation", href: "/#pillars" },
       { label: "Integration & Data Layer", href: "/#pillars" },

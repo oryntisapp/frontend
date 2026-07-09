@@ -19,7 +19,7 @@ const PILLARS: Pillar[] = [
   {
     icon: Cpu,
     index: "01",
-    name: "AI Operations Engine",
+    name: "Core Operations Engine",
     desc: "Centralizes work across every department and coordinates cross-functional processes automatically.",
     span: "md:col-span-4 md:row-span-2",
     flagship: true,

@@ -6,7 +6,7 @@ import { drawLine } from "../../lib/motionVariants";
 const NODES = [
   { icon: Building2, label: "Enterprise Systems" },
   { icon: Plug, label: "Integration & Data Layer" },
-  { icon: BrainCircuit, label: "AI Operations Engine" },
+  { icon: BrainCircuit,     label: "Core Operations Engine" },
   { icon: Workflow, label: "Workflow Intelligence" },
   { icon: Bot, label: "Automation Execution" },
   { icon: LayoutDashboard, label: "Command Dashboard" },
@@ -114,8 +114,7 @@ export default function Architecture() {
       </div>
 
       <p className="mx-auto mt-14 max-w-2xl text-center text-sm text-foreground-muted">
-        How Oryntis unifies, automates, and optimizes enterprise operations through an
-        AI-driven operations engine powered by accelerated computing infrastructure.
+        How Oryntis unifies, automates, and optimizes enterprise operations through an intelligent operations engine powered by accelerated computing infrastructure.
       </p>
     </section>
   );

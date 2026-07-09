@@ -14,7 +14,7 @@ const SECTIONS = [
   },
   {
     title: "3. How We Use Information",
-    body: "We use the information we collect to deliver the AI Operations Engine, Workflow Intelligence System, Business Automation Layer, and Operations Command Dashboard functionality you've subscribed to; to improve and optimize the platform; to bill you under our usage-based automation pricing model; to communicate with you about your account, billing, and platform updates; and to provide customer support.",
+    body: "We use the information we collect to deliver the Core Operations Engine, Workflow Intelligence System, Business Automation Layer, and Operations Command Dashboard functionality you've subscribed to; to improve and optimize the platform; to bill you under our usage-based automation pricing model; to communicate with you about your account, billing, and platform updates; and to provide customer support.",
   },
   {
     title: "4. Data Sharing & Third Parties",
