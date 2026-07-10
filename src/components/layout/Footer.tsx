@@ -1,7 +1,8 @@
-import { Hexagon, Mail, Linkedin, Twitter } from "lucide-react";
+import { Mail, Linkedin, Twitter } from "lucide-react";
 import { Link } from "react-router-dom";
 import Button from "../ui/Button";
 import { primaryCTA } from "../../lib/tokens";
+import logoFull from "../../assets/images/logos/logo-full.svg";
 
 const COLUMNS = [
   { title: "Company", links: [{ label: "About", href: "/#about" }, { label: "Contact Sales", href: "/#contact" }] },
@@ -56,7 +57,7 @@ export default function Footer() {
 
       <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 border-t border-border px-6 py-8 text-xs text-foreground-muted sm:flex-row lg:px-8">
         <div className="flex items-center gap-2">
-          <Hexagon className="h-4 w-4 text-accent" fill="currentColor" fillOpacity={0.15} />
+          <img src={logoFull} alt="Oryntis" className="h-6 w-auto" />
           <span>© {new Date().getFullYear()} Oryntis. All rights reserved.</span>
         </div>
         <div className="flex items-center gap-6">

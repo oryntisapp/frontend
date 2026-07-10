@@ -2,53 +2,49 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Building2, Rocket, Landmark, Users2, GitBranch, Gauge } from "lucide-react";
 import SectionHeading from "../ui/SectionHeading";
+import audience1 from "../../assets/images/audience/enterprise-organizations.svg";
+import audience2 from "../../assets/images/audience/saas-companies.svg";
+import audience3 from "../../assets/images/audience/finance-hr.svg";
+import audience4 from "../../assets/images/audience/operations-managers.svg";
+import audience5 from "../../assets/images/audience/digital-transformation.svg";
+import audience6 from "../../assets/images/audience/process-optimization.svg";
 
-/**
- * TEMPORARY IMAGES — using Lorem Picsum (https://picsum.photos), a free, no-key,
- * hotlink-friendly placeholder photo service. `source.unsplash.com` (the old go-to for
- * this) was fully deprecated and no longer resolves, so don't reach for that instead.
- * Picsum can't be searched by keyword/theme — the `seed` string just guarantees you get
- * the *same* photo back every time rather than a random one on each reload — so these
- * are believable generic corporate/tech photography, not literally "a skyscraper" etc.
- * Swap the `image` field on each entry below for real photography whenever it's ready;
- * nothing else in this component needs to change.
- */
 const AUDIENCE = [
   {
     icon: Building2,
     title: "Enterprise organizations",
     desc: "Unify operations across every department without adding headcount.",
-    image: "https://picsum.photos/seed/oryntis-enterprise/1000/1400",
+    image: audience1,
   },
   {
     icon: Rocket,
     title: "SaaS companies scaling fast",
     desc: "Automate the operational overhead that comes with rapid growth.",
-    image: "https://picsum.photos/seed/oryntis-saas/1000/1400",
+    image: audience2,
   },
   {
     icon: Landmark,
     title: "Finance & HR departments",
     desc: "Run recurring processes without the manual busywork.",
-    image: "https://picsum.photos/seed/oryntis-finance/1000/1400",
+    image: audience3,
   },
   {
     icon: Users2,
     title: "Operations managers",
     desc: "See execution across teams in one command view, in real time.",
-    image: "https://picsum.photos/seed/oryntis-ops/1000/1400",
+    image: audience4,
   },
   {
     icon: GitBranch,
     title: "Digital transformation teams",
     desc: "Replace fragmented tools with one coordinated operations layer.",
-    image: "https://picsum.photos/seed/oryntis-transform/1000/1400",
+    image: audience5,
   },
   {
     icon: Gauge,
     title: "Process optimization teams",
     desc: "Find and fix bottlenecks before they cost the business.",
-    image: "https://picsum.photos/seed/oryntis-process/1000/1400",
+    image: audience6,
   },
 ];
 

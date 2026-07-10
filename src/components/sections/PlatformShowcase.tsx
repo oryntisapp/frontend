@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { ShieldCheck, Zap, GitBranch } from "lucide-react";
-import portrait from "../../assets/images/hero-portrait.jpeg";
 import { fadeUp, fadeUpStagger } from "../../lib/motionVariants";
+import whyOryntis from "../../assets/images/sections/why-oryntis.svg";
 
 const POINTS = [
   {
@@ -38,9 +38,9 @@ export default function PlatformShowcase() {
           />
           <div className="relative overflow-hidden rounded-2xl border border-border bg-background-elevated shadow-card">
             <img
-              src={portrait}
-              alt="Person wearing a next-generation operations headset, representing the Oryntis AI operations layer"
-              className="aspect-[4/5] w-full object-cover object-top"
+              src={whyOryntis}
+              alt="Oryntis operations intelligence platform illustration"
+              className="aspect-[4/5] w-full object-contain object-center"
               loading="lazy"
             />
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background-base/70 via-transparent to-transparent" />

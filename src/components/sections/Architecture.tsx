@@ -1,15 +1,20 @@
 import { motion } from "framer-motion";
-import { Building2, Plug, BrainCircuit, Workflow, Bot, LayoutDashboard } from "lucide-react";
 import SectionHeading from "../ui/SectionHeading";
 import { drawLine } from "../../lib/motionVariants";
+import step1 from "../../assets/images/how-it-works/step-1.svg";
+import step2 from "../../assets/images/how-it-works/step-2.svg";
+import step3 from "../../assets/images/how-it-works/step-3.svg";
+import step4 from "../../assets/images/how-it-works/step-4.svg";
+import step5 from "../../assets/images/how-it-works/step-5.svg";
+import step6 from "../../assets/images/how-it-works/step-6.svg";
 
 const NODES = [
-  { icon: Building2, label: "Enterprise Systems" },
-  { icon: Plug, label: "Integration & Data Layer" },
-  { icon: BrainCircuit,     label: "Core Operations Engine" },
-  { icon: Workflow, label: "Workflow Intelligence" },
-  { icon: Bot, label: "Automation Execution" },
-  { icon: LayoutDashboard, label: "Command Dashboard" },
+  { img: step1, label: "Enterprise Systems" },
+  { img: step2, label: "Integration & Data Layer" },
+  { img: step3, label: "Core Operations Engine" },
+  { img: step4, label: "Workflow Intelligence" },
+  { img: step5, label: "Automation Execution" },
+  { img: step6, label: "Command Dashboard" },
 ];
 
 const TRAVEL_S = 4;
@@ -103,9 +108,9 @@ export default function Architecture() {
                   delay: (i / (NODES.length - 1)) * TRAVEL_S - PULSE_S,
                   ease: "easeInOut",
                 }}
-                className="flex h-16 w-16 items-center justify-center rounded-2xl border border-border bg-background-elevated transition-colors duration-300 hover:border-border-accent"
+                className="flex h-20 w-20 items-center justify-center rounded-2xl border border-border bg-background-elevated transition-colors duration-300 hover:border-border-accent"
               >
-                <n.icon className="h-6 w-6 text-accent" strokeWidth={1.6} />
+                <img src={n.img} alt={n.label} className="h-12 w-12 object-contain" />
               </motion.div>
               <p className="max-w-[110px] text-xs font-medium text-foreground-muted">{n.label}</p>
             </motion.div>

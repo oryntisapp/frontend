@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "framer-motion";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Hexagon } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import Button from "../ui/Button";
 import MobileMenu from "./MobileMenu";
 import { primaryCTA, primaryCTARoute } from "../../lib/tokens";
+import logoFull from "../../assets/images/logos/logo-full.svg";
 
 export interface NavLink {
   label: string;
@@ -55,8 +56,7 @@ export default function Navbar() {
       >
         <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6 lg:px-8">
           <Link to="/" className="flex items-center gap-2 text-foreground" aria-label="Oryntis home">
-            <Hexagon className="h-5 w-5 text-accent" strokeWidth={2} fill="currentColor" fillOpacity={0.15} />
-            <span className="font-mono text-sm font-semibold tracking-tight">Oryntis</span>
+            <img src={logoFull} alt="Oryntis" className="h-8 w-auto" />
           </Link>
 
           <ul className="hidden items-center gap-8 md:flex">

@@ -4,8 +4,10 @@ import { Star } from "lucide-react";
 import SectionHeading from "../ui/SectionHeading";
 import TiltCard from "../ui/TiltCard";
 import { crossfadeSlide } from "../../lib/motionVariants";
-
-const PORTRAIT_URL = new URL("../../assets/images/hero-portrait.jpeg", import.meta.url).href;
+import marcusReyes from "../../assets/images/testimonials/marcus-reyes.svg";
+import danielOsei from "../../assets/images/testimonials/daniel-osei.svg";
+import priyaNasser from "../../assets/images/testimonials/priya-nasser.svg";
+import anikaFernando from "../../assets/images/testimonials/anika-fernando.svg";
 
 const TESTIMONIALS = [
   {
@@ -13,24 +15,28 @@ const TESTIMONIALS = [
       "Oryntis gave our operations team one place to see everything instead of six logins and a spreadsheet.",
     name: "Priya Nasser",
     role: "VP of Operations, Finlace",
+    image: priyaNasser,
   },
   {
     quote:
       "We automated the finance and HR busywork first — that alone freed up almost a full week per month.",
     name: "Daniel Osei",
     role: "Head of Automation, Northbeam Ops",
+    image: danielOsei,
   },
   {
     quote:
       "The workflow intelligence layer found bottlenecks our own team hadn't noticed yet.",
     name: "Anika Fernando",
     role: "CFO, Verdant Group",
+    image: anikaFernando,
   },
   {
     quote:
       "Rolling this out across departments took weeks, not quarters, because everything already spoke the same language.",
     name: "Marcus Reyes",
     role: "Digital Transformation Lead, Argon Industrial",
+    image: marcusReyes,
   },
 ];
 
@@ -72,9 +78,9 @@ export default function Testimonials() {
             <TiltCard maxTilt={6} className="flex flex-col overflow-hidden sm:flex-row">
               <div className="relative aspect-[3/4] w-full shrink-0 sm:w-[40%]">
                 <img
-                  src={PORTRAIT_URL}
+                  src={current.image}
                   alt={current.name}
-                  className="h-full w-full object-cover object-[50%_20%]"
+                  className="h-full w-full object-contain object-center"
                   loading="lazy"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-background-base/60 via-transparent to-transparent sm:bg-gradient-to-r sm:from-transparent sm:via-transparent sm:to-background-base/40" />

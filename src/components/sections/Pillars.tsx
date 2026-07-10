@@ -3,6 +3,11 @@ import { Cpu, Workflow, Zap, Plug, LayoutDashboard, ArrowUpRight } from "lucide-
 import SectionHeading from "../ui/SectionHeading";
 import GlassCard from "../ui/GlassCard";
 import { fadeUp, fadeUpStagger } from "../../lib/motionVariants";
+import pillar1 from "../../assets/images/pillars/pillar-core-operations-engine.svg";
+import pillar2 from "../../assets/images/pillars/pillar-workflow-intelligence.svg";
+import pillar3 from "../../assets/images/pillars/pillar-business-automation.svg";
+import pillar4 from "../../assets/images/pillars/pillar-integration-data-layer.svg";
+import pillar5 from "../../assets/images/pillars/pillar-command-dashboard.svg";
 
 interface Pillar {
   icon: typeof Cpu;
@@ -23,7 +28,7 @@ const PILLARS: Pillar[] = [
     desc: "Centralizes work across every department and coordinates cross-functional processes automatically.",
     span: "md:col-span-4 md:row-span-2",
     flagship: true,
-    bg: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1200&h=800&fit=crop&q=80",
+    bg: pillar1,
     wash: "linear-gradient(135deg, rgba(24,4,75,0.55) 0%, rgba(12,10,20,0.55) 45%, rgba(12,10,20,0.85) 100%)",
   },
   {
@@ -32,7 +37,7 @@ const PILLARS: Pillar[] = [
     name: "Workflow Intelligence System",
     desc: "Finds the bottlenecks slowing your teams down and recommends the fix.",
     span: "md:col-span-2",
-    bg: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=700&h=600&fit=crop&q=80",
+    bg: pillar2,
     wash: "linear-gradient(160deg, rgba(101,114,133,0.35) 0%, rgba(12,10,20,0.6) 50%, rgba(12,10,20,0.9) 100%)",
   },
   {
@@ -41,7 +46,7 @@ const PILLARS: Pillar[] = [
     name: "Business Automation Layer",
     desc: "Finance, HR, sales, and support tasks that used to take hours now run themselves.",
     span: "md:col-span-2",
-    bg: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=700&h=600&fit=crop&q=80",
+    bg: pillar3,
     wash: "linear-gradient(160deg, rgba(177,62,217,0.35) 0%, rgba(12,10,20,0.6) 50%, rgba(12,10,20,0.9) 100%)",
   },
   {
@@ -50,7 +55,7 @@ const PILLARS: Pillar[] = [
     name: "Integration & Data Layer",
     desc: "Every enterprise app and API, synchronized into one source of truth.",
     span: "md:col-span-3",
-    bg: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=900&h=600&fit=crop&q=80",
+    bg: pillar4,
     wash: "linear-gradient(135deg, rgba(96,19,161,0.4) 0%, rgba(12,10,20,0.6) 50%, rgba(12,10,20,0.9) 100%)",
   },
   {
@@ -59,7 +64,7 @@ const PILLARS: Pillar[] = [
     name: "Operations Command Dashboard",
     desc: "Real-time performance, workflow execution, and predictive alerts in one view.",
     span: "md:col-span-3",
-    bg: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=900&h=600&fit=crop&q=80",
+    bg: pillar5,
     wash: "linear-gradient(135deg, rgba(225,108,241,0.3) 0%, rgba(12,10,20,0.6) 50%, rgba(12,10,20,0.9) 100%)",
   },
 ];
