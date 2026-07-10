@@ -48,7 +48,8 @@ export default {
         danger: "#E14F4F",
       },
       fontFamily: {
-        sans: ["'Sora'", "'Inter'", "system-ui", "sans-serif"],
+        sans: ["'Inter'", "system-ui", "sans-serif"],
+        display: ["'Space Grotesk'", "'Inter'", "system-ui", "sans-serif"],
         mono: ["'JetBrains Mono'", "'Geist Mono'", "monospace"],
       },
       backgroundImage: {

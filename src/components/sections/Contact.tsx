@@ -52,7 +52,7 @@ export default function Contact() {
         whileInView="visible"
         viewport={{ once: true, amount: 0.1 }}
         variants={fadeUpStagger}
-        className="mt-14 grid gap-6 lg:grid-cols-2"
+        className="mt-14 grid gap-6 lg:grid-cols-2 items-stretch"
       >
         {/* Left — contact form */}
         <motion.div variants={fadeUp}>
@@ -144,7 +144,7 @@ export default function Contact() {
         </motion.div>
 
         {/* Right — company details + map */}
-        <motion.div variants={fadeUp} className="flex flex-col gap-6">
+        <motion.div variants={fadeUp} className="flex flex-col gap-6 h-full">
           <GlassCard interactive={false} className="p-6 sm:p-8">
             <h3 className="mb-5 text-sm font-semibold tracking-tight text-foreground">Company details</h3>
             <div className="space-y-4">
@@ -175,12 +175,12 @@ export default function Contact() {
             </div>
           </GlassCard>
 
-          <div className="overflow-hidden rounded-2xl border border-border">
+          <div className="flex flex-col flex-1 overflow-hidden rounded-2xl border border-border">
             <iframe
               title="Oryntis headquarters at 525 Market Street, San Francisco"
               src={MAP_EMBED}
               loading="lazy"
-              className="aspect-[4/3] w-full"
+              className="flex-1 w-full min-h-[280px]"
               style={{ filter: "grayscale(0.4) invert(0.92) contrast(0.9)" }}
             />
           </div>

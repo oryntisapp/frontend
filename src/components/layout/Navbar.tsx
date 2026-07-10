@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "framer-motion";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
-import Button from "../ui/Button";
 import MobileMenu from "./MobileMenu";
 import { primaryCTA, primaryCTARoute } from "../../lib/tokens";
 import logoFull from "../../assets/images/logos/logo-full.svg";
+import faviconIcon from "../../assets/images/favicon/favicon.svg";
 
 export interface NavLink {
   label: string;
@@ -13,10 +13,6 @@ export interface NavLink {
   route?: boolean;
 }
 
-// "Docs" removed: the DocsTeaser section it pointed to has been replaced by
-// PlatformShowcase (see Home.tsx) — a dangling nav link to a removed section
-// would otherwise be a dead-end click, which the functional requirements
-// explicitly rule out.
 const LINKS: NavLink[] = [
   { label: "Home", href: "/", route: true },
   { label: "Testimonials", href: "/#testimonials" },
@@ -56,39 +52,52 @@ export default function Navbar() {
       >
         <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6 lg:px-8">
           <Link to="/" className="flex items-center gap-2 text-foreground" aria-label="Oryntis home">
-            <img src={logoFull} alt="Oryntis" className="h-8 w-auto" />
+            <img src={logoFull} alt="Oryntis" className="h-10 w-auto" />
           </Link>
 
-          <ul className="hidden items-center gap-8 md:flex">
-            {LINKS.map((link) =>
-              link.route ? (
-                <li key={link.label}>
-                  <Link
-                    to={link.href}
-                    className="group relative text-sm text-foreground-muted transition-colors hover:text-foreground"
-                  >
-                    {link.label}
-                    <span className="absolute -bottom-1 left-0 h-px w-full origin-left scale-x-0 bg-accent transition-transform duration-200 ease-out group-hover:scale-x-100" />
-                  </Link>
-                </li>
-              ) : (
+          <ul className="hidden items-center gap-9 md:flex">
+            {LINKS.map((link) => {
+              if (link.route) {
+                return (
+                  <li key={link.label}>
+                    <Link
+                      to={link.href}
+                      className="group relative text-[13px] font-medium tracking-wide text-foreground-muted transition-colors hover:text-foreground"
+                    >
+                      {link.label}
+                      <span className="absolute -bottom-1.5 left-0 h-px w-full origin-left scale-x-0 bg-accent transition-transform duration-200 ease-out group-hover:scale-x-100" />
+                    </Link>
+                  </li>
+                );
+              }
+              return (
                 <li key={link.label}>
                   <a
                     href={link.href}
-                    className="group relative text-sm text-foreground-muted transition-colors hover:text-foreground"
+                    className="group relative text-[13px] font-medium tracking-wide text-foreground-muted transition-colors hover:text-foreground"
                   >
                     {link.label}
-                    <span className="absolute -bottom-1 left-0 h-px w-full origin-left scale-x-0 bg-accent transition-transform duration-200 ease-out group-hover:scale-x-100" />
+                    <span className="absolute -bottom-1.5 left-0 h-px w-full origin-left scale-x-0 bg-accent transition-transform duration-200 ease-out group-hover:scale-x-100" />
                   </a>
                 </li>
-              )
-            )}
+              );
+            })}
           </ul>
 
           <div className="hidden md:block">
-            <Button variant="primary" to={primaryCTARoute} className="!px-4 !py-2 !text-xs">
-              {primaryCTA}
-            </Button>
+            <Link
+              to={primaryCTARoute}
+              className="inline-flex items-center gap-2.5 rounded-xl bg-zinc-950/40 backdrop-blur-md border border-white/10 px-4 py-2 transition-all duration-300 ease-in-out hover:border-purple-500/50 hover:bg-purple-500/[0.05] hover:shadow-[0_0_25px_rgba(168,85,247,0.35)]"
+            >
+              <motion.img
+                src={faviconIcon}
+                alt=""
+                className="w-9 h-9 shrink-0"
+                animate={{ rotate: 360 }}
+                transition={{ repeat: Infinity, duration: 8, ease: "linear" }}
+              />
+              <span className="font-medium text-sm tracking-wide text-white">{primaryCTA}</span>
+            </Link>
           </div>
 
           <button
@@ -98,11 +107,23 @@ export default function Navbar() {
           >
             <AnimatePresence mode="wait" initial={false}>
               {menuOpen ? (
-                <motion.span key="x" initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 90, opacity: 0 }} transition={{ duration: 0.15 }}>
+                <motion.span
+                  key="x"
+                  initial={{ rotate: -90, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  exit={{ rotate: 90, opacity: 0 }}
+                  transition={{ duration: 0.15 }}
+                >
                   <X className="h-5 w-5" />
                 </motion.span>
               ) : (
-                <motion.span key="menu" initial={{ rotate: 90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: -90, opacity: 0 }} transition={{ duration: 0.15 }}>
+                <motion.span
+                  key="menu"
+                  initial={{ rotate: 90, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  exit={{ rotate: -90, opacity: 0 }}
+                  transition={{ duration: 0.15 }}
+                >
                   <Menu className="h-5 w-5" />
                 </motion.span>
               )}

@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
 import SectionHeading from "../ui/SectionHeading";
-import { drawLine } from "../../lib/motionVariants";
 import step1 from "../../assets/images/how-it-works/step-1.svg";
 import step2 from "../../assets/images/how-it-works/step-2.svg";
 import step3 from "../../assets/images/how-it-works/step-3.svg";
@@ -8,17 +7,74 @@ import step4 from "../../assets/images/how-it-works/step-4.svg";
 import step5 from "../../assets/images/how-it-works/step-5.svg";
 import step6 from "../../assets/images/how-it-works/step-6.svg";
 
-const NODES = [
-  { img: step1, label: "Enterprise Systems" },
-  { img: step2, label: "Integration & Data Layer" },
-  { img: step3, label: "Core Operations Engine" },
-  { img: step4, label: "Workflow Intelligence" },
-  { img: step5, label: "Automation Execution" },
-  { img: step6, label: "Command Dashboard" },
+const PHASES = [
+  {
+    phase: "Phase 1",
+    title: "Ingestion Layer",
+    left: {
+      img: step1,
+      label: "Enterprise Systems",
+      desc1: "ERP, CRM, HRIS system",
+      desc2: "ingestion connectors",
+    },
+    right: {
+      img: step2,
+      label: "Data Infrastructure",
+      desc1: "Normalization engine,",
+      desc2: "schema mapping protocols",
+    },
+  },
+  {
+    phase: "Phase 2",
+    title: "Processing Engine",
+    left: {
+      img: step3,
+      label: "Core Operations Engine",
+      desc1: "Accelerated computing",
+      desc2: "infrastructure pipelines",
+    },
+    right: {
+      img: step4,
+      label: "Workflow Intelligence",
+      desc1: "Predictive bottleneck",
+      desc2: "analysis matrix modules",
+    },
+  },
+  {
+    phase: "Phase 3",
+    title: "Orchestration & Visibility",
+    left: {
+      img: step5,
+      label: "Automation Execution",
+      desc1: "Asynchronous serverless",
+      desc2: "background worker groups",
+    },
+    right: {
+      img: step6,
+      label: "Command Dashboard",
+      desc1: "Real-time centralized",
+      desc2: "observability console panels",
+    },
+  },
 ];
 
-const TRAVEL_S = 4;
-const PULSE_S = 0.5;
+const phaseVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.15, delayChildren: 0.3 },
+  },
+};
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 28, scale: 0.94 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { duration: 0.55, ease: [0.16, 1, 0.3, 1] },
+  },
+};
 
 export default function Architecture() {
   return (
@@ -30,96 +86,161 @@ export default function Architecture() {
         className="mx-auto"
       />
 
-      <div className="relative mt-16">
+      <div className="relative mt-20">
         <div
-          className="pointer-events-none absolute inset-x-0 top-1/2 -z-10 h-40 -translate-y-1/2 opacity-50 blur-[80px]"
-          style={{ background: "radial-gradient(600px circle at 50% 50%, #6013A1, transparent 70%)" }}
+          className="pointer-events-none absolute inset-x-0 top-1/2 -z-10 h-80 -translate-y-1/2 opacity-40 blur-[100px]"
+          style={{ background: "radial-gradient(800px circle at 50% 50%, #6013A1, transparent 70%)" }}
         />
 
+        {/* Desktop: Central trunk line SVG */}
         <svg
-          viewBox="0 0 1200 120"
-          className="absolute left-0 top-[38px] hidden w-full md:block"
+          viewBox="0 0 2 700"
+          className="absolute left-1/2 top-0 hidden h-full w-0.5 -translate-x-1/2 md:block"
           preserveAspectRatio="none"
         >
           <defs>
-            <linearGradient id="pipeGradient" x1="0" y1="0" x2="1" y2="0">
+            <linearGradient id="trunkGrad" x1="0" y1="0" x2="0" y2="1">
               <stop offset="0%" stopColor="#657285" />
-              <stop offset="45%" stopColor="#B13ED9" />
+              <stop offset="50%" stopColor="#B13ED9" />
               <stop offset="100%" stopColor="#E16CF1" />
             </linearGradient>
             <filter id="dotGlow" x="-200%" y="-200%" width="500%" height="500%">
               <feGaussianBlur stdDeviation="6" />
             </filter>
           </defs>
-
           <motion.path
-            d="M 100 60 L 1100 60"
-            stroke="url(#pipeGradient)"
+            d="M 1 0 L 1 700"
+            stroke="url(#trunkGrad)"
             strokeWidth="2"
             strokeDasharray="6 8"
             fill="none"
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, amount: 0.6 }}
-            variants={drawLine}
+            viewport={{ once: true, amount: 0.3 }}
+            variants={{
+              hidden: { pathLength: 0 },
+              visible: {
+                pathLength: 1,
+                transition: { duration: 2, ease: "easeInOut" },
+              },
+            }}
           />
-
           <motion.circle
-            r="10"
+            r="5"
             fill="#E16CF1"
             filter="url(#dotGlow)"
-            opacity={0.55}
-            animate={{ cx: [100, 1100] }}
-            transition={{ duration: TRAVEL_S, repeat: Infinity, ease: "linear" }}
-            cy={60}
-          />
-          <motion.circle
-            r="4"
-            fill="#ffffff"
-            animate={{ cx: [100, 1100] }}
-            transition={{ duration: TRAVEL_S, repeat: Infinity, ease: "linear" }}
-            cy={60}
+            initial={{ cy: 0, opacity: 0 }}
+            whileInView={{ cy: 700, opacity: [0, 1, 1, 0] }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 2.2, ease: "easeInOut", times: [0, 0.15, 0.85, 1] }}
+            cx={1}
           />
         </svg>
 
-        <div className="relative grid grid-cols-2 gap-y-10 sm:grid-cols-3 md:grid-cols-6 md:gap-y-0">
-          {NODES.map((n, i) => (
+        {/* Phase groups — each phase triggers independently on scroll */}
+        <div className="relative space-y-20 md:space-y-28">
+          {PHASES.map((phase, pi) => (
             <motion.div
-              key={n.label}
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.5 }}
-              transition={{ duration: 0.5, delay: i * 0.08 }}
-              whileHover={{ y: -3 }}
-              className="flex flex-col items-center gap-3 text-center"
+              key={phase.phase}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.35 }}
+              variants={phaseVariants}
+              className="relative"
             >
-              <motion.div
-                animate={{
-                  boxShadow: [
-                    "0 0 0 1px rgba(150,167,185,0.12), 0 2px 20px rgba(0,0,0,0.4)",
-                    "0 0 0 1px rgba(177,62,217,0.5), 0 0 24px 4px rgba(177,62,217,0.35)",
-                    "0 0 0 1px rgba(150,167,185,0.12), 0 2px 20px rgba(0,0,0,0.4)",
-                  ],
-                }}
-                transition={{
-                  duration: PULSE_S * 2,
-                  repeat: Infinity,
-                  repeatDelay: TRAVEL_S - PULSE_S * 2,
-                  delay: (i / (NODES.length - 1)) * TRAVEL_S - PULSE_S,
-                  ease: "easeInOut",
-                }}
-                className="flex h-20 w-20 items-center justify-center rounded-2xl border border-border bg-background-elevated transition-colors duration-300 hover:border-border-accent"
-              >
-                <img src={n.img} alt={n.label} className="h-12 w-12 object-contain" />
-              </motion.div>
-              <p className="max-w-[110px] text-xs font-medium text-foreground-muted">{n.label}</p>
+              {/* Phase label — centered above each phase */}
+              <div className="absolute left-1/2 top-0 z-10 -translate-x-1/2 -translate-y-1/2">
+                <span className="whitespace-nowrap rounded-full border border-accent/25 bg-background px-4 py-1 font-mono text-[10px] uppercase tracking-widest text-accent shadow-[0_0_16px_-4px_rgba(177,62,217,0.2)]">
+                  {phase.phase}: {phase.title}
+                </span>
+              </div>
+
+              <div className="pt-10">
+                {/* Desktop layout */}
+                <div className="hidden items-start justify-center gap-6 md:flex">
+                  {/* Left card */}
+                  <motion.div variants={cardVariants} className="group relative w-[290px]">
+                    <div className="absolute right-0 top-[26px] h-px w-16 bg-gradient-to-l from-accent/30 to-transparent transition-all duration-300 group-hover:from-accent/70" />
+                    <div className="rounded-xl border border-border bg-background-elevated/60 p-5 transition-all duration-300 hover:border-accent/40 hover:shadow-[0_0_24px_-6px_rgba(177,62,217,0.25)]">
+                      <div className="flex items-start gap-4">
+                        <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-lg border border-border/60 bg-background p-2.5 transition-transform duration-300 group-hover:scale-110">
+                          <img src={phase.left.img} alt={phase.left.label} className="h-full w-full object-contain" />
+                        </div>
+                        <div className="min-w-0">
+                          <p className="text-sm font-semibold text-foreground">{phase.left.label}</p>
+                          <p className="mt-1 text-xs leading-relaxed text-foreground-muted">
+                            {phase.left.desc1}
+                            <br />
+                            {phase.left.desc2}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
+
+                  {/* Center dot on trunk */}
+                  <div className="relative pt-[18px]">
+                    <div className="h-4 w-4 rounded-full border-2 border-accent bg-background shadow-[0_0_0_4px_rgba(177,62,217,0.15)]" />
+                  </div>
+
+                  {/* Right card */}
+                  <motion.div variants={cardVariants} className="group relative w-[290px]">
+                    <div className="absolute left-0 top-[26px] h-px w-16 bg-gradient-to-r from-accent/30 to-transparent transition-all duration-300 group-hover:from-accent/70" />
+                    <div className="rounded-xl border border-border bg-background-elevated/60 p-5 transition-all duration-300 hover:border-accent/40 hover:shadow-[0_0_24px_-6px_rgba(177,62,217,0.25)]">
+                      <div className="flex items-start gap-4">
+                        <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-lg border border-border/60 bg-background p-2.5 transition-transform duration-300 group-hover:scale-110">
+                          <img src={phase.right.img} alt={phase.right.label} className="h-full w-full object-contain" />
+                        </div>
+                        <div className="min-w-0">
+                          <p className="text-sm font-semibold text-foreground">{phase.right.label}</p>
+                          <p className="mt-1 text-xs leading-relaxed text-foreground-muted">
+                            {phase.right.desc1}
+                            <br />
+                            {phase.right.desc2}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
+                </div>
+
+                {/* Mobile layout — left-aligned timeline */}
+                <div className="space-y-6 md:hidden">
+                  {[phase.left, phase.right].map((item, sideIdx) => (
+                    <motion.div
+                      key={item.label}
+                      variants={cardVariants}
+                      className="group relative flex items-start gap-4 pl-8"
+                    >
+                      <div className="absolute left-[7px] top-[18px] h-3 w-3 rounded-full border-2 border-accent bg-background" />
+                      {sideIdx === 0 && (
+                        <div className="absolute bottom-0 left-[11px] top-[30px] w-px bg-gradient-to-b from-accent/20 to-transparent" />
+                      )}
+                      <div className="flex-1 rounded-xl border border-border bg-background-elevated/60 p-4 transition-all duration-300 hover:border-accent/40 hover:shadow-[0_0_20px_-6px_rgba(177,62,217,0.2)]">
+                        <div className="flex items-start gap-3">
+                          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-border/60 bg-background p-2 transition-transform duration-300 group-hover:scale-110">
+                            <img src={item.img} alt={item.label} className="h-full w-full object-contain" />
+                          </div>
+                          <div className="min-w-0">
+                            <p className="text-sm font-semibold text-foreground">{item.label}</p>
+                            <p className="mt-0.5 text-xs leading-relaxed text-foreground-muted">
+                              {item.desc1} {item.desc2}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
             </motion.div>
           ))}
         </div>
       </div>
 
-      <p className="mx-auto mt-14 max-w-2xl text-center text-sm text-foreground-muted">
-        How Oryntis unifies, automates, and optimizes enterprise operations through an intelligent operations engine powered by accelerated computing infrastructure.
+      <p className="mx-auto mt-20 max-w-2xl text-center text-sm text-foreground-muted">
+        How Oryntis unifies, automates, and optimizes enterprise operations through an intelligent
+        operations engine powered by accelerated computing infrastructure.
       </p>
     </section>
   );

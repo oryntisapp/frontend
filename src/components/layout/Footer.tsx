@@ -57,7 +57,7 @@ export default function Footer() {
 
       <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 border-t border-border px-6 py-8 text-xs text-foreground-muted sm:flex-row lg:px-8">
         <div className="flex items-center gap-2">
-          <img src={logoFull} alt="Oryntis" className="h-6 w-auto" />
+          <img src={logoFull} alt="Oryntis" className="h-9 w-auto" />
           <span>© {new Date().getFullYear()} Oryntis. All rights reserved.</span>
         </div>
         <div className="flex items-center gap-6">

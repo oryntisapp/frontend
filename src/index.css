@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -6,7 +6,7 @@
 
 :root {
   color-scheme: dark;
-  --hero-glow: #b13ed9; /* fallback tone until portrait/robot asset is composited */
+  --hero-glow: #b13ed9;
 }
 
 * {
@@ -26,7 +26,8 @@ body {
 }
 
 h1, h2, h3, h4 {
-  font-family: "Sora", "Inter", system-ui, sans-serif;
+  font-family: "Space Grotesk", "Inter", system-ui, sans-serif;
+  letter-spacing: -0.02em;
 }
 
 ::selection {
@@ -70,8 +71,6 @@ h1, h2, h3, h4 {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-/* signature "reflection" motif: a bright element with a fainter, cooler, inverted echo
-   beneath a thin rim-light seam. Applied via this utility class on any panel/orb layer. */
 .reflection-seam {
   position: relative;
 }

@@ -1,10 +1,6 @@
 import { motion } from "framer-motion";
-import { Hexagon, ArrowRight } from "lucide-react";
-import ConnectionsWidget from "../components/dashboard/ConnectionsWidget";
-import AIProcessWidget from "../components/dashboard/AIProcessWidget";
-import InfraHealthWidget from "../components/dashboard/InfraHealthWidget";
+import { Hexagon, ExternalLink } from "lucide-react";
 import Badge from "../components/ui/Badge";
-import Button from "../components/ui/Button";
 import { fadeUp } from "../lib/motionVariants";
 
 export default function Product() {
@@ -16,47 +12,49 @@ export default function Product() {
         style={{ background: "radial-gradient(circle, #B13ED9 0%, #6013A1 40%, transparent 70%)" }}
       />
 
-      {/* Muted widget preview — teases the real product */}
-      <div className="pointer-events-none relative select-none opacity-40" aria-hidden="true">
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
-          <div className="md:col-span-2"><ConnectionsWidget /></div>
-          <div className="md:col-span-2"><AIProcessWidget /></div>
-          <div className="md:col-span-4"><InfraHealthWidget /></div>
-        </div>
-        {/* Overlay to fully block interaction */}
-        <div className="absolute inset-0" />
+      {/* Spinning geometric matrix background */}
+      <div className="pointer-events-none absolute inset-0 flex items-center justify-center overflow-hidden">
+        <Hexagon
+          className="h-48 w-48 animate-[spin_20s_linear_infinite] text-purple-500/10 sm:h-64 sm:w-64"
+          strokeWidth={0.5}
+        />
+        <Hexagon
+          className="absolute h-36 w-36 animate-[spin_30s_linear_infinite_reverse] text-purple-500/10 sm:h-48 sm:w-48"
+          strokeWidth={0.5}
+        />
       </div>
 
-      {/* Centered maintenance panel */}
+      {/* Centered maintenance showcase */}
       <motion.div
         variants={fadeUp}
         initial="hidden"
         animate="visible"
-        className="relative -mt-8 flex justify-center"
+        className="relative flex flex-col items-center justify-center min-h-[70vh] text-center px-4"
       >
-        <div className="w-full max-w-lg rounded-2xl border border-border bg-background-elevated/90 p-10 shadow-card backdrop-blur-2xl sm:p-12">
-          <div className="flex flex-col items-center text-center">
-            <Badge className="mb-6 border-warning/30 bg-warning/10 text-warning">
-              Under Maintenance
-            </Badge>
+        <Badge className="border-warning/30 bg-warning/10 text-warning">
+          Under Maintenance
+        </Badge>
 
-            <Hexagon className="mx-auto h-8 w-8 text-accent" fill="currentColor" fillOpacity={0.15} />
+        <h1 className="mt-6 text-3xl font-semibold tracking-tight text-white md:text-4xl">
+          Core Modules Under Optimization
+        </h1>
 
-            <h1 className="text-gradient-white mt-5 text-3xl font-semibold tracking-tight sm:text-4xl">
-              The Platform Experience Is Getting an Upgrade
-            </h1>
+        <p className="mt-4 max-w-2xl text-sm leading-relaxed text-foreground-muted">
+          We are currently calibrating our core operations engine infrastructure to deliver enhanced
+          system intelligence. Live control systems remain fully operational via the enterprise
+          console.
+        </p>
 
-            <p className="mt-4 text-sm leading-relaxed text-foreground-muted">
-              We're refining the Oryntis platform view to give you a clearer picture of your
-              operations. The full experience will be back shortly.
-            </p>
-
-            <div className="mt-8">
-              <Button variant="primary" to="/#pricing" icon={<ArrowRight className="h-4 w-4" />}>
-                Talk to Sales
-              </Button>
-            </div>
-          </div>
+        <div className="mt-10">
+          <a
+            href="http://app.oryntisapp.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 rounded-xl bg-purple-600 px-6 py-3 font-medium tracking-wide text-white shadow-[0_0_20px_rgba(168,85,247,0.4)] transition-all duration-300 hover:shadow-[0_0_35px_rgba(168,85,247,0.7)]"
+          >
+            GO TO DASHBOARD
+            <ExternalLink className="h-4 w-4" strokeWidth={2.5} />
+          </a>
         </div>
       </motion.div>
     </div>
