@@ -36,5 +36,5 @@ export const motion = {
 } as const;
 
 export const primaryCTA = "Oryntis OS";
-export const primaryCTARoute = "/product";
+export const primaryCTARoute = "/Product";
 export const secondaryCTA = "See the Dashboard";

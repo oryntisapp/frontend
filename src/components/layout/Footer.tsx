@@ -28,7 +28,9 @@ export default function Footer() {
           Ready to run your operations on one platform?
         </h2>
         <div className="mt-8 flex justify-center">
-          <Button variant="large">{primaryCTA}</Button>
+          <Button variant="large" to="/Product">
+            {primaryCTA}
+          </Button>
         </div>
       </div>
 

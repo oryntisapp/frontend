@@ -12,6 +12,7 @@ export default function App() {
       <PageShell>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/Product" element={<Product />} />
           <Route path="/product" element={<Product />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/privacy" element={<Privacy />} />
