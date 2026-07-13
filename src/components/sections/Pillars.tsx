@@ -72,7 +72,7 @@ const PILLARS: Pillar[] = [
 export default function Pillars() {
   return (
     <section id="pillars" className="relative z-10 mx-auto max-w-7xl px-6 py-24 sm:py-32 lg:px-8">
-      <SectionHeading eyebrow="The Five Pillars" headline="Everything your operations need, unified" />
+      <SectionHeading eyebrow="The Five Pillars" headline="Everything your operations need, unified" align="center" className="mx-auto" />
 
       <motion.div
         initial="hidden"

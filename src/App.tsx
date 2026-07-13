@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import PageShell from "./components/layout/PageShell";
+import ScrollToTop from "./components/layout/ScrollToTop";
 import Home from "./pages/Home";
 import Product from "./pages/Product";
 import Blog from "./pages/Blog";
@@ -9,6 +10,7 @@ import Terms from "./pages/Terms";
 export default function App() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <PageShell>
         <Routes>
           <Route path="/" element={<Home />} />

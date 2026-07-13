@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { motion } from "framer-motion";
 import SectionHeading from "../ui/SectionHeading";
 import step1 from "../../assets/images/how-it-works/step-1.svg";
@@ -77,8 +78,81 @@ const cardVariants = {
 };
 
 export default function Architecture() {
+  useEffect(() => {
+    const canvas = document.getElementById('dna-helix-bg') as HTMLCanvasElement;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    let animationFrameId: number;
+
+    const resizeCanvas = () => {
+      canvas.width = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+    };
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    const numNodes = 45;
+    const radius = 65;
+    const speed = 0.012;
+    let rotationAngle = 0;
+
+    const render = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      rotationAngle += speed;
+
+      const centerX = canvas.width / 2;
+      const stepY = canvas.height / numNodes;
+
+      for (let i = 0; i < numNodes; i++) {
+        const y = i * stepY;
+        const currentAngle = rotationAngle + (i * 0.22);
+
+        const xStrand1 = centerX + Math.sin(currentAngle) * radius;
+        const xStrand2 = centerX - Math.sin(currentAngle) * radius;
+
+        const depthOpacity1 = (Math.cos(currentAngle) + 1) / 2 * 0.6 + 0.4;
+        const depthOpacity2 = (-Math.cos(currentAngle) + 1) / 2 * 0.6 + 0.4;
+
+        ctx.beginPath();
+        ctx.moveTo(xStrand1, y);
+        ctx.lineTo(xStrand2, y);
+        ctx.strokeStyle = `rgba(177, 62, 217, ${Math.min(depthOpacity1, depthOpacity2) * 0.12})`;
+        ctx.lineWidth = 1;
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.arc(xStrand1, y, 3, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(225, 108, 241, ${depthOpacity1 * 0.8})`;
+        ctx.shadowBlur = 8;
+        ctx.shadowColor = '#E16CF1';
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.arc(xStrand2, y, 3, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(96, 19, 161, ${depthOpacity2 * 0.8})`;
+        ctx.shadowBlur = 8;
+        ctx.shadowColor = '#6013A1';
+        ctx.fill();
+
+        ctx.shadowBlur = 0;
+      }
+
+      animationFrameId = requestAnimationFrame(render);
+    };
+
+    render();
+
+    return () => {
+      window.removeEventListener('resize', resizeCanvas);
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, []);
+
   return (
     <section className="relative z-10 mx-auto max-w-7xl px-6 py-24 sm:py-32 lg:px-8">
+      <canvas id="dna-helix-bg" className="absolute inset-0 pointer-events-none -z-20 w-full h-full opacity-25" />
+
       <SectionHeading
         eyebrow="How It Works"
         headline="One pipeline, from raw system data to executed work"

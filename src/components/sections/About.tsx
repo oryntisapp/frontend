@@ -14,7 +14,7 @@ const FACTS = [
 export default function About() {
   return (
     <section id="about" className="relative z-10 mx-auto max-w-7xl px-6 py-24 sm:py-32 lg:px-8">
-      <SectionHeading eyebrow="About Oryntis" headline="Operations intelligence, built to unify the business" />
+      <SectionHeading eyebrow="About Oryntis" headline="Operations intelligence, built to unify the business" align="center" className="mx-auto" />
 
       <motion.div
         initial="hidden"

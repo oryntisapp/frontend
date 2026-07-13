@@ -6,6 +6,7 @@ type Status = "connected" | "syncing" | "available";
 const STATUS_STYLES: Record<Status, string> = {
   connected: "bg-success/15 text-success border-success/30",
   syncing: "bg-warning/15 text-warning border-warning/30",
+  
   available: "bg-white/[0.04] text-foreground-subtle border-border",
 };
 

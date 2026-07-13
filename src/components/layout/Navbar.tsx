@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "framer-motion";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import MobileMenu from "./MobileMenu";
 import { primaryCTA, primaryCTARoute } from "../../lib/tokens";
@@ -11,21 +11,25 @@ export interface NavLink {
   label: string;
   href: string;
   route?: boolean;
+  sectionId?: string;
 }
 
 const LINKS: NavLink[] = [
   { label: "Home", href: "/", route: true },
-  { label: "Testimonials", href: "/#testimonials" },
-  { label: "Pricing", href: "/#pricing" },
-  { label: "About", href: "/#about" },
-  { label: "Contact", href: "/#contact" },
+  { label: "Testimonials", href: "/#testimonials", sectionId: "testimonials" },
+  { label: "Pricing", href: "/#pricing", sectionId: "pricing" },
+  { label: "About", href: "/#about", sectionId: "about" },
+  { label: "Contact", href: "/#contact", sectionId: "contact" },
 ];
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("");
   const { scrollY } = useScroll();
   const location = useLocation();
+  const navigate = useNavigate();
+  const observerRef = useRef<Map<string, IntersectionObserver>>(new Map());
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     setScrolled(latest > 80);
@@ -37,6 +41,74 @@ export default function Navbar() {
       document.body.style.overflow = "";
     };
   }, [menuOpen]);
+
+  // Intersection Observer for active section detection + scroll-based Home highlight
+  useEffect(() => {
+    if (location.pathname !== "/") {
+      setActiveSection("");
+      return;
+    }
+
+    // Reset to Home when at the very top
+    const handleScroll = () => {
+      if (window.scrollY < 300) {
+        setActiveSection("");
+      }
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    const sectionIds = LINKS.filter((l) => l.sectionId).map((l) => l.sectionId!);
+    const observers = new Map<string, IntersectionObserver>();
+
+    const handleIntersect = (entries: IntersectionObserverEntry[]) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) {
+          setActiveSection(entry.target.id);
+        }
+      }
+    };
+
+    for (const id of sectionIds) {
+      const el = document.getElementById(id);
+      if (!el) continue;
+      const observer = new IntersectionObserver(handleIntersect, {
+        rootMargin: "-20% 0px -60% 0px",
+        threshold: 0,
+      });
+      observer.observe(el);
+      observers.set(id, observer);
+    }
+
+    observerRef.current = observers;
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      for (const observer of observers.values()) {
+        observer.disconnect();
+      }
+    };
+  }, [location.pathname]);
+
+  const handleNavClick = useCallback(
+    (link: NavLink, e: React.MouseEvent) => {
+      if (!link.sectionId) return;
+
+      e.preventDefault();
+
+      // Already on Home — scroll directly (no navigation needed)
+      if (location.pathname === "/") {
+        const el = document.getElementById(link.sectionId);
+        if (el) {
+          el.scrollIntoView({ behavior: "smooth" });
+        }
+        return;
+      }
+
+      // On another page — navigate to /#sectionId; ScrollToTop handles the rest
+      navigate(link.href);
+    },
+    [location.pathname, navigate]
+  );
 
   return (
     <>
@@ -57,15 +129,27 @@ export default function Navbar() {
 
           <ul className="hidden items-center gap-9 md:flex">
             {LINKS.map((link) => {
+              const isActive = link.sectionId
+                ? activeSection === link.sectionId
+                : link.label === "Home"
+                  ? location.pathname === "/" && activeSection === ""
+                  : location.pathname === link.href;
+
               if (link.route) {
                 return (
                   <li key={link.label}>
                     <Link
                       to={link.href}
-                      className="group relative text-[13px] font-medium tracking-wide text-foreground-muted transition-colors hover:text-foreground"
+                      className={`group relative text-[13px] font-medium tracking-wide transition-colors ${
+                        isActive ? "text-foreground" : "text-foreground-muted hover:text-foreground"
+                      }`}
                     >
                       {link.label}
-                      <span className="absolute -bottom-1.5 left-0 h-px w-full origin-left scale-x-0 bg-accent transition-transform duration-200 ease-out group-hover:scale-x-100" />
+                      <span
+                        className={`absolute -bottom-1.5 left-0 h-px w-full origin-left bg-accent transition-transform duration-200 ease-out ${
+                          isActive ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
+                        }`}
+                      />
                     </Link>
                   </li>
                 );
@@ -74,10 +158,17 @@ export default function Navbar() {
                 <li key={link.label}>
                   <a
                     href={link.href}
-                    className="group relative text-[13px] font-medium tracking-wide text-foreground-muted transition-colors hover:text-foreground"
+                    onClick={(e) => handleNavClick(link, e)}
+                    className={`group relative text-[13px] font-medium tracking-wide transition-colors ${
+                      isActive ? "text-foreground" : "text-foreground-muted hover:text-foreground"
+                    }`}
                   >
                     {link.label}
-                    <span className="absolute -bottom-1.5 left-0 h-px w-full origin-left scale-x-0 bg-accent transition-transform duration-200 ease-out group-hover:scale-x-100" />
+                    <span
+                      className={`absolute -bottom-1.5 left-0 h-px w-full origin-left bg-accent transition-transform duration-200 ease-out ${
+                        isActive ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
+                      }`}
+                    />
                   </a>
                 </li>
               );

@@ -1,32 +1,122 @@
-# Force HTTPS
-RewriteEngine On
-RewriteCond %{HTTPS} off
-RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+# =============================================
+# Oryntis — Production .htaccess
+# =============================================
 
-# SPA fallback: rewrite all non-file/non-directory requests to index.html
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^ index.html [L]
-
-# Correct MIME types
-<IfModule mod_mime.c>
-  AddType application/wasm .wasm
-  AddType font/woff2 .woff2
-  AddType model/gltf-binary .glb
-  AddType image/webp .webp
+# ----- Force HTTPS -----
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTPS} off
+  RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 </IfModule>
 
-# Caching: long-lived immutable for hashed static assets, no-cache for index.html
+# ----- Remove www (optional — uncomment if needed) -----
+# <IfModule mod_rewrite.c>
+#   RewriteEngine On
+#   RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+#   RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+# </IfModule>
+
+# ----- SPA Fallback Routing -----
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # If the requested file or directory doesn't exist, serve index.html
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^index\.html$ - [L]
+  RewriteCond %{REQUEST_URI} !^/assets/
+  RewriteCond %{REQUEST_URI} !^/favicon\.svg$
+  RewriteRule . /index.html [L]
+</IfModule>
+
+# ----- Gzip Compression -----
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html
+  AddOutputFilterByType DEFLATE text/css
+  AddOutputFilterByType DEFLATE text/javascript
+  AddOutputFilterByType DEFLATE text/xml
+  AddOutputFilterByType DEFLATE text/plain
+  AddOutputFilterByType DEFLATE application/javascript
+  AddOutputFilterByType DEFLATE application/x-javascript
+  AddOutputFilterByType DEFLATE application/json
+  AddOutputFilterByType DEFLATE application/xml
+  AddOutputFilterByType DEFLATE application/rss+xml
+  AddOutputFilterByType DEFLATE application/atom+xml
+  AddOutputFilterByType DEFLATE image/svg+xml
+  AddOutputFilterByType DEFLATE font/ttf
+  AddOutputFilterByType DEFLATE font/otf
+  AddOutputFilterByType DEFLATE font/woff
+  AddOutputFilterByType DEFLATE font/woff2
+  AddOutputFilterByType DEFLATE image/webp
+</IfModule>
+
+# ----- Browser Caching -----
+<IfModule mod_expires.c>
+  ExpiresActive On
+
+  # HTML — no cache (always revalidate)
+  ExpiresByType text/html "access plus 0 seconds"
+
+  # CSS & JavaScript — 1 year (Vite content-hashes bust cache)
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType text/javascript "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+
+  # Images — 1 year
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/gif "access plus 1 year"
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType image/avif "access plus 1 year"
+
+  # Fonts — 1 year
+  ExpiresByType font/ttf "access plus 1 year"
+  ExpiresByType font/otf "access plus 1 year"
+  ExpiresByType font/woff "access plus 1 year"
+  ExpiresByType font/woff2 "access plus 1 year"
+
+  # 3D models — 1 year
+  ExpiresByType model/gltf-binary "access plus 1 year"
+  ExpiresByType model/gltf+json "access plus 1 year"
+</IfModule>
+
+# ----- Cache-Control Headers -----
 <IfModule mod_headers.c>
-  <FilesMatch "\.(js|css|woff2|glb|webp|png|jpg|jpeg|svg)$">
-    Header set Cache-Control "public, max-age=31536000, immutable"
-  </FilesMatch>
-  <FilesMatch "index\.html$">
+  # HTML — always revalidate
+  <FilesMatch "\.html$">
     Header set Cache-Control "no-cache, no-store, must-revalidate"
   </FilesMatch>
+
+  # Vite-hashed assets — immutable (content hash changes on rebuild)
+  <FilesMatch "\.(js|css|woff2|woff|ttf|otf|glb|webp|avif|svg)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+
+  # Images without hash — 1 year
+  <FilesMatch "\.(jpg|jpeg|png|gif|ico)$">
+    Header set Cache-Control "public, max-age=31536000"
+  </FilesMatch>
 </IfModule>
 
-# Compression
-<IfModule mod_deflate.c>
-  AddOutputFilterByType DEFLATE text/html text/css application/javascript application/json image/svg+xml
+# ----- Security Headers -----
+<IfModule mod_headers.c>
+  Header set X-Content-Type-Options "nosniff"
+  Header set X-Frame-Options "SAMEORIGIN"
+  Header set X-XSS-Protection "1; mode=block"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+  Header set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+  Header set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" env=HTTPS
 </IfModule>
+
+# ----- Block directory listing -----
+Options -Indexes
+
+# ----- Block access to hidden files -----
+<IfModule mod_rewrite.c>
+  RewriteRule (^\.|/\.) - [F]
+</IfModule>
+
+# ----- Custom error pages -----
+ErrorDocument 404 /index.html

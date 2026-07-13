@@ -21,7 +21,11 @@ const TONE_DOT: Record<Tone, string> = {
 
 export default function InfraHealthWidget() {
   return (
-    <GlassCard className="col-span-1 h-full p-5 md:col-span-4">
+    // Same fix as the other two widgets — this is the one that suffered most visibly
+    // (truncated "Nomina/Attent" text) since it's meant to span the full width (4/4
+    // columns) but was actually being squeezed into a single 1/4-width column by the
+    // col-span bug.
+    <GlassCard className="h-full p-5">
       <div className="mb-4 flex items-center justify-between">
         <h3 className="text-sm font-semibold tracking-tight">Infrastructure Health</h3>
         <span className="font-mono text-[10px] uppercase tracking-widest text-foreground-subtle">Live</span>

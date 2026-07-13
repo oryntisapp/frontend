@@ -14,7 +14,9 @@ const STAGES = [
 
 export default function AIProcessWidget() {
   return (
-    <GlassCard className="col-span-1 h-full p-5 md:col-span-2">
+    // Same fix as ConnectionsWidget: col-span belongs on the real grid item one level up
+    // in DashboardPreview.tsx, not here.
+    <GlassCard className="h-full p-5">
       <div className="mb-5 flex items-center justify-between">
         <h3 className="text-sm font-semibold tracking-tight">AI Process Visualizer</h3>
         <span className="rounded-full border border-border bg-white/[0.03] px-2.5 py-1 font-mono text-[9px] uppercase tracking-widest text-foreground-subtle">
