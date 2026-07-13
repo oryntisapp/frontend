@@ -11,6 +11,7 @@ interface Tier {
   price: string;
   priceNote?: string;
   cta: string;
+  checkoutUrl?: string;
   features: string[];
   highlighted?: boolean;
 }
@@ -20,7 +21,8 @@ const TIERS: Tier[] = [
     name: "Starter",
     positioning: "Prove value with a single team",
     price: "$99/mo",
-    cta: "Contact Sales",
+    cta: "Get Started",
+    checkoutUrl: "https://buy.stripe.com/test_cNi5kE4SgdHc3B7ex4cwg00",
     features: [
       "Core Operations Dashboard",
       "Up to 3 connected systems",
@@ -33,7 +35,8 @@ const TIERS: Tier[] = [
     name: "Growth",
     positioning: "Scale automation across the operations function",
     price: "$249/mo",
-    cta: "Contact Sales",
+    cta: "Get Started",
+    checkoutUrl: "https://buy.stripe.com/test_7sY7sM84s1YudbHgFccwg01",
     highlighted: true,
     features: [
       "Everything in Starter",
@@ -48,7 +51,8 @@ const TIERS: Tier[] = [
     name: "Enterprise",
     positioning: "Organization-wide operations automation",
     price: "$799/mo",
-    cta: "Contact Sales",
+    cta: "Get Started",
+    checkoutUrl: "https://buy.stripe.com/test_aFa7sM0C06eK7Rn60ycwg02",
     features: [
       "Everything in Growth",
       "Full Business Automation Layer",
@@ -123,13 +127,25 @@ export default function Pricing() {
                 </li>
               ))}
             </ul>
-            <Button
-              variant={tier.highlighted ? "primary" : "ghost"}
-              className="mt-8 w-full"
-              onClick={() => document.getElementById("docs")?.scrollIntoView({ behavior: "smooth" })}
-            >
-              {tier.cta}
-            </Button>
+            {tier.checkoutUrl ? (
+              <Button
+                variant={tier.highlighted ? "primary" : "ghost"}
+                className="mt-8 w-full"
+                href={tier.checkoutUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {tier.cta}
+              </Button>
+            ) : (
+              <Button
+                variant={tier.highlighted ? "primary" : "ghost"}
+                className="mt-8 w-full"
+                onClick={() => document.getElementById("docs")?.scrollIntoView({ behavior: "smooth" })}
+              >
+                {tier.cta}
+              </Button>
+            )}
           </GlassCard>
         ))}
       </div>
