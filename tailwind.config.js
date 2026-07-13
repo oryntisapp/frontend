@@ -7,6 +7,7 @@ export default {
         background: {
           void: "#030303",
           base: "#050308",
+          deep: "#090713",
           elevated: "#0C0A14",
         },
         surface: {

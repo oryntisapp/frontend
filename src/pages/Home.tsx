@@ -1,4 +1,4 @@
-import Hero from "../components/sections/Hero";
+import Hero from "../components/hero/Hero";
 import TrustBar from "../components/sections/TrustBar";
 import Architecture from "../components/sections/Architecture";
 import Pillars from "../components/sections/Pillars";

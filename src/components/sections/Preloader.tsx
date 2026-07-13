@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useGLTF } from "@react-three/drei";
 import { useReducedMotion } from "../../hooks/useReducedMotion";
 
-const MODEL_URL = new URL("../../assets/models/robot.glb", import.meta.url).href;
 const HARD_CAP_MS = 2500;
 
 function timeout(ms: number) {
@@ -24,11 +22,7 @@ export default function Preloader({ onDone }: { onDone: () => void }) {
       console.warn("[Preloader] font loading rejected, continuing anyway:", err);
     });
 
-    const modelReady = Promise.resolve(useGLTF.preload(MODEL_URL)).catch((err) => {
-      console.warn("[Preloader] robot.glb preload rejected, continuing with fallback:", err);
-    });
-
-    const assetsReady = Promise.allSettled([fontsReady, modelReady]).then(() => {});
+    const assetsReady = Promise.allSettled([fontsReady]).then(() => {});
 
     const tick = () => {
       const elapsed = performance.now() - start;
