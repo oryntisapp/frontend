@@ -1,8 +1,16 @@
 import { Suspense, lazy } from "react";
-import { Workflow, RefreshCw, BarChart3, Lock } from "lucide-react";
 import type { MousePosition } from "../../hooks/useMousePosition";
 
-const CoreEngineVisual = lazy(() => import("../hero3d/CoreEngineVisual"));
+import liveSync from "../../assets/images/hero/Live Sync.svg";
+import efficiency from "../../assets/images/hero/Efficiency.svg";
+import automation from "../../assets/images/hero/Automation.mp4";
+import autoResolve from "../../assets/images/hero/Auto-Resolve.mp4";
+import processGif from "../../assets/images/hero/Process.gif";
+import syncGif from "../../assets/images/hero/Sync.gif";
+import analyticsGif from "../../assets/images/hero/Analytics.gif";
+import securityGif from "../../assets/images/hero/Security.gif";
+
+import CoreEngineInfinity from "./CoreEngineInfinity";
 const CompactRobotCanvas = lazy(() => import("../hero3d/CompactRobotCanvas"));
 
 function Tile({
@@ -14,7 +22,7 @@ function Tile({
 }) {
   return (
     <div
-      className={`relative overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.03] ${className}`}
+      className={`group relative overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.03] ${className}`}
     >
       {children}
     </div>
@@ -26,14 +34,18 @@ function MediaCard({
   videoSrc,
   alt,
   label,
+  fetchPriority,
+  className = "",
 }: {
   src?: string;
   videoSrc?: string;
   alt: string;
   label: string;
+  fetchPriority?: "high" | "low" | "auto";
+  className?: string;
 }) {
   return (
-    <Tile className="h-full">
+    <Tile className={`h-full ${className}`}>
       {videoSrc ? (
         <video
           src={videoSrc}
@@ -41,14 +53,18 @@ function MediaCard({
           loop
           muted
           playsInline
-          className="absolute inset-0 h-full w-full object-cover opacity-60 mix-blend-screen transition-transform duration-700 ease-out hover:scale-105"
+          preload="auto"
+          fetchPriority={fetchPriority}
+          className="absolute inset-0 h-full w-full object-cover mix-blend-screen opacity-60 transition-all duration-700 ease-out hover:scale-105"
         />
       ) : (
         <img
           src={src}
           alt={alt}
-          loading="lazy"
-          className="absolute inset-0 h-full w-full object-cover opacity-60 mix-blend-screen transition-transform duration-700 ease-out hover:scale-105"
+          loading={fetchPriority === "high" ? "eager" : "lazy"}
+          decoding="async"
+          fetchPriority={fetchPriority}
+          className="absolute inset-0 h-full w-full object-cover mix-blend-screen opacity-60 transition-all duration-700 ease-out hover:scale-105"
         />
       )}
       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
@@ -62,9 +78,10 @@ function MediaCard({
 export function SyncActivityBox() {
   return (
     <MediaCard
-      videoSrc="https://cdn.pixabay.com/video/2025/11/11/315284_large.mp4"
-      alt="Neon abstract background"
-      label="Live Sync"
+      src={liveSync}
+      alt="Live sync visualization"
+      label="Omnichannel Sync"
+      fetchPriority="high"
     />
   );
 }
@@ -72,17 +89,18 @@ export function SyncActivityBox() {
 export function EfficiencyChartBox() {
   return (
     <MediaCard
-      src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80&auto=format&fit=crop"
-      alt="Data analytics dashboard"
-      label="Efficiency"
+      src={efficiency}
+      alt="Efficiency chart"
+      label="Operational Intelligence"
+      fetchPriority="high"
     />
   );
 }
 
 export function CoreEngineBox({
-  mouse,
-  active,
-  reducedMotion,
+  mouse: _mouse,
+  active: _active,
+  reducedMotion: _reducedMotion,
 }: {
   mouse: MousePosition;
   active: React.RefObject<boolean>;
@@ -91,13 +109,11 @@ export function CoreEngineBox({
   return (
     <Tile className="flex h-full flex-col p-4">
       <div className="flex items-center justify-between">
-        <span className="font-mono text-[10px] uppercase tracking-widest text-accent">Core Engine</span>
+        <span className="font-mono text-[10px] uppercase tracking-widest text-accent">AI Orchestration Engine</span>
         <span className="h-1.5 w-1.5 rounded-full bg-accent shadow-[0_0_8px_2px_rgba(177,62,217,0.5)]" aria-hidden="true" />
       </div>
-      <div className="relative flex-1">
-        <Suspense fallback={<div className="h-full w-full animate-pulse rounded-xl bg-white/[0.02]" />}>
-          <CoreEngineVisual mouse={mouse} active={active} reducedMotion={reducedMotion} />
-        </Suspense>
+      <div className="relative flex-1 overflow-hidden rounded-xl backdrop-blur-sm bg-zinc-950/20">
+        <CoreEngineInfinity />
       </div>
       <p className="text-[11px] leading-relaxed text-foreground-muted">
         Coordinates work across every department in real time.
@@ -106,29 +122,13 @@ export function CoreEngineBox({
   );
 }
 
-function IconTile({
-  icon,
-  label,
-}: {
-  icon: React.ReactNode;
-  label: string;
-}) {
-  return (
-    <Tile className="flex h-full flex-1 flex-col items-center justify-center gap-2">
-      <div className="text-purple-400">{icon}</div>
-      <span className="font-mono text-[10px] uppercase tracking-wider text-foreground-muted">
-        {label}
-      </span>
-    </Tile>
-  );
-}
-
 export function AutomationNodesBox() {
   return (
     <MediaCard
-      videoSrc="https://cdn.pixabay.com/video/2024/09/21/232461_large.mp4"
-      alt="AI generated woman brain business"
+      videoSrc={automation}
+      alt="Automation workflow"
       label="Automation"
+      fetchPriority="high"
     />
   );
 }
@@ -136,46 +136,79 @@ export function AutomationNodesBox() {
 export function AlertResolvedBox() {
   return (
     <MediaCard
-      videoSrc="https://cdn.pixabay.com/video/2023/07/21/172529-847499878_large.mp4"
-      alt="AI generated hands typing laptop"
-      label="Auto-Resolve"
+      videoSrc={autoResolve}
+      alt="Auto-resolve alert animation"
+      label="Anonmous Execution"
+      fetchPriority="high"
     />
   );
 }
 
 export function WorkflowBox() {
   return (
-    <IconTile
-      icon={<Workflow className="h-5 w-5" strokeWidth={1.5} />}
-      label="Process"
-    />
+    <Tile className="bg-[#000000] flex flex-col items-center justify-center p-6 h-full hover:border-purple-500/40 hover:shadow-[0_0_20px_rgba(168,85,247,0.1)] transition-all duration-300">
+      <img
+        src={processGif}
+        alt="Process workflow animation"
+        loading="lazy"
+        decoding="async"
+        className="w-16 h-16 object-contain mx-auto"
+      />
+      <span className="mt-2 font-mono text-[10px] uppercase tracking-wider text-foreground-muted">
+        Data Normalization
+      </span>
+    </Tile>
   );
 }
 
 export function SyncBox() {
   return (
-    <IconTile
-      icon={<RefreshCw className="h-5 w-5" strokeWidth={1.5} />}
-      label="Sync"
-    />
+    <Tile className="bg-[#000000] flex flex-col items-center justify-center p-6 h-full hover:border-purple-500/40 hover:shadow-[0_0_20px_rgba(168,85,247,0.1)] transition-all duration-300">
+      <img
+        src={syncGif}
+        alt="Sync animation"
+        loading="lazy"
+        decoding="async"
+        className="w-16 h-16 object-contain mx-auto"
+      />
+      <span className="mt-2 font-mono text-[10px] uppercase tracking-wider text-foreground-muted">
+        Api Orchestration
+      </span>
+    </Tile>
   );
 }
 
 export function AnalyticsBox() {
   return (
-    <IconTile
-      icon={<BarChart3 className="h-5 w-5" strokeWidth={1.5} />}
-      label="Analytics"
-    />
+    <Tile className="bg-[#000000] flex flex-col items-center justify-center p-6 h-full hover:border-purple-500/40 hover:shadow-[0_0_20px_rgba(168,85,247,0.1)] transition-all duration-300">
+      <img
+        src={analyticsGif}
+        alt="Analytics dashboard animation"
+        loading="lazy"
+        decoding="async"
+        className="w-16 h-16 object-contain mx-auto"
+      />
+      <span className="mt-2 font-mono text-[10px] uppercase tracking-wider text-foreground-muted">
+        Decision Intelligence
+      </span>
+    </Tile>
   );
 }
 
 export function SecurityBox() {
   return (
-    <IconTile
-      icon={<Lock className="h-5 w-5" strokeWidth={1.5} />}
-      label="Security"
-    />
+    <Tile className="bg-[#000000] flex flex-col items-center justify-center p-6 h-full hover:border-purple-500/40 hover:shadow-[0_0_20px_rgba(168,85,247,0.1)] transition-all duration-300">
+      <img
+        src={securityGif}
+        alt="Security animation"
+        loading="lazy"
+        decoding="async"
+        className="w-16 h-16 object-contain mx-auto"
+      />
+      <span className="mt-2 font-mono text-[10px] uppercase tracking-wider text-foreground-muted">
+        Governance & Trust
+      </span>
+    </Tile>
   );
 }
 
