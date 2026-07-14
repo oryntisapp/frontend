@@ -222,7 +222,7 @@ export function DashboardPreviewBox({
   reducedMotion: boolean;
 }) {
   return (
-    <Tile className="relative h-full p-0">
+    <Tile className="relative flex flex-col items-center justify-between pb-12 h-full p-0">
       <Suspense
         fallback={
           <div className="flex h-full w-full items-center justify-center">
@@ -232,6 +232,7 @@ export function DashboardPreviewBox({
       >
         <CompactRobotCanvas mouse={mouse} active={active} reducedMotion={reducedMotion} />
       </Suspense>
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 w-32 h-4 bg-black/40 rounded-full blur-md pointer-events-none mix-blend-multiply animate-[shadowSync_4s_easeInOut_infinite]" />
     </Tile>
   );
 }

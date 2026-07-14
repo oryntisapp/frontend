@@ -18,8 +18,8 @@ import {
   SecurityBox,
   DashboardPreviewBox,
 } from "./BentoHeroBoxes";
+import TestimonialCluster from "./TestimonialCluster";
 
-const CLIENT_LOGOS = ["inSlace", "Northbeam Ops", "Verdant Group", "Halcyon SaaS", "Kestrel Health"];
 
 export default function Hero({ preloaderDone }: { preloaderDone: boolean }) {
   const mouse = useMousePosition();
@@ -114,12 +114,44 @@ export default function Hero({ preloaderDone }: { preloaderDone: boolean }) {
           initial={{ opacity: 0, y: 16 }}
           animate={preloaderDone ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-          className="mt-7 rounded-[22px] bg-gradient-to-br from-[#b34ff5] via-[#8a35e8] to-[#7c2ce0] px-6 py-5 sm:px-8"
+          className="mt-7 bg-gradient-to-r from-[#7C3AED] via-[#9333EA] to-[#7C3AED] rounded-2xl relative overflow-hidden shadow-[0_8px_32px_rgba(147,51,234,0.35)]"
         >
-          <p className="max-w-md text-sm leading-relaxed text-white/95 sm:text-[15px]">
-            Oryntis unifies finance, HR, sales, and operations into one intelligent
-            layer — automating the busywork and giving your team real-time visibility.
-          </p>
+          <div className="absolute inset-0 rounded-2xl p-[1px] pointer-events-none" style={{ background: "linear-gradient(135deg, rgba(236,108,235,0.7) 0%, rgba(147,51,234,0.3) 50%, rgba(236,108,235,0.7) 100%)" }}>
+            <div className="h-full w-full rounded-2xl bg-transparent" />
+          </div>
+          <div className="absolute inset-0 bg-gradient-to-br from-white/[0.08] via-transparent to-pink-400/[0.06] pointer-events-none" />
+          <div className="absolute inset-0 w-full h-full pointer-events-none overflow-hidden opacity-25">
+            <svg width="100%" height="100%" viewBox="0 0 1200 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M0,60 Q300,20 600,60 T1200,60"
+                fill="none"
+                stroke="url(#purpleWaveGrad)"
+                strokeWidth="2"
+                className="animate-[pulse_4s_easeInOut_infinite]"
+              />
+              <path
+                d="M0,40 Q300,80 600,40 T1200,40"
+                fill="none"
+                stroke="url(#purpleWaveGrad)"
+                strokeWidth="1.5"
+                strokeDasharray="5 5"
+                className="animate-[pulse_6s_easeInOut_infinite_delay-1000]"
+              />
+              <defs>
+                <linearGradient id="purpleWaveGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stopColor="rgba(255, 255, 255, 0.6)" />
+                  <stop offset="50%" stopColor="rgba(255, 255, 255, 0.1)" />
+                  <stop offset="100%" stopColor="rgba(255, 255, 255, 0.6)" />
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+          <div className="flex items-center justify-between p-6 px-8 relative z-10">
+            <p className="text-white font-sans text-sm md:text-base font-normal tracking-wide leading-relaxed relative z-10">
+              <span className="text-white font-bold underline decoration-white/30 underline-offset-4">Oryntis</span> unifies finance, HR, sales, and operations into one
+              intelligent layer — <span className="text-zinc-100 font-semibold">automating</span> the busywork and giving your team <span className="text-purple-100 font-medium">real-time visibility</span>.
+            </p>
+          </div>
         </motion.div>
 
         <div className="mt-12 flex flex-wrap items-start justify-between gap-8">
@@ -198,36 +230,11 @@ export default function Hero({ preloaderDone }: { preloaderDone: boolean }) {
               </p>
             )}
 
-            <div className="flex" aria-label={`Trusted by ${CLIENT_LOGOS.length}+ operations teams`}>
-              {CLIENT_LOGOS.slice(0, 4).map((name, i) => (
-                <div
-                  key={name}
-                  title={name}
-                  style={{ marginLeft: i === 0 ? 0 : -10 }}
-                  className="flex h-9 w-9 items-center justify-center rounded-full border-2 border-background bg-[#d9d9dd]/90 text-[10px] font-semibold text-[#111]"
-                >
-                  {name.slice(0, 2).toUpperCase()}
-                </div>
-              ))}
-            </div>
+            <TestimonialCluster />
+
           </motion.div>
         </div>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={preloaderDone ? { opacity: 1 } : {}}
-          transition={{ delay: 0.7, duration: 0.6 }}
-          className="mt-14 flex flex-wrap items-center gap-x-8 gap-y-2 border-t border-border pt-6"
-        >
-          <span className="font-mono text-[10px] uppercase tracking-widest text-foreground-subtle">
-            Trusted by operations teams
-          </span>
-          {CLIENT_LOGOS.map((name) => (
-            <span key={name} className="font-mono text-[11px] tracking-wide text-foreground-subtle/70">
-              {name}
-            </span>
-          ))}
-        </motion.div>
       </div>
     </div>
   );
