@@ -53,6 +53,18 @@ export default function Testimonials() {
     };
   }, [paused]);
 
+  useEffect(() => {
+    function handleNavigate(e: Event) {
+      const detail = (e as CustomEvent).detail;
+      if (typeof detail?.index === "number") {
+        setIndex(detail.index);
+        setPaused(true);
+      }
+    }
+    window.addEventListener("testimonial-navigate", handleNavigate);
+    return () => window.removeEventListener("testimonial-navigate", handleNavigate);
+  }, []);
+
   const current = TESTIMONIALS[index];
 
   return (

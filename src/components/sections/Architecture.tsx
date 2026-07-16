@@ -238,7 +238,7 @@ export default function Architecture() {
                     <div className="rounded-xl border border-border bg-background-elevated/60 p-5 transition-all duration-300 hover:border-accent/40 hover:shadow-[0_0_24px_-6px_rgba(177,62,217,0.25)]">
                       <div className="flex items-start gap-4">
                         <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-lg border border-border/60 bg-background p-2.5 transition-transform duration-300 group-hover:scale-110">
-                          <img src={phase.left.img} alt={phase.left.label} className="h-full w-full object-contain" />
+                           <img src={phase.left.img} alt={phase.left.label} className="h-full w-full object-contain invert brightness-200 contrast-200" />
                         </div>
                         <div className="min-w-0">
                           <p className="text-sm font-semibold text-foreground">{phase.left.label}</p>
@@ -263,7 +263,7 @@ export default function Architecture() {
                     <div className="rounded-xl border border-border bg-background-elevated/60 p-5 transition-all duration-300 hover:border-accent/40 hover:shadow-[0_0_24px_-6px_rgba(177,62,217,0.25)]">
                       <div className="flex items-start gap-4">
                         <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-lg border border-border/60 bg-background p-2.5 transition-transform duration-300 group-hover:scale-110">
-                          <img src={phase.right.img} alt={phase.right.label} className="h-full w-full object-contain" />
+                           <img src={phase.right.img} alt={phase.right.label} className="h-full w-full object-contain invert brightness-200 contrast-200" />
                         </div>
                         <div className="min-w-0">
                           <p className="text-sm font-semibold text-foreground">{phase.right.label}</p>
@@ -293,7 +293,7 @@ export default function Architecture() {
                       <div className="flex-1 rounded-xl border border-border bg-background-elevated/60 p-4 transition-all duration-300 hover:border-accent/40 hover:shadow-[0_0_20px_-6px_rgba(177,62,217,0.2)]">
                         <div className="flex items-start gap-3">
                           <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-border/60 bg-background p-2 transition-transform duration-300 group-hover:scale-110">
-                            <img src={item.img} alt={item.label} className="h-full w-full object-contain" />
+                             <img src={item.img} alt={item.label} className="h-full w-full object-contain invert brightness-200 contrast-200" />
                           </div>
                           <div className="min-w-0">
                             <p className="text-sm font-semibold text-foreground">{item.label}</p>

@@ -54,7 +54,7 @@ function MediaCard({
           muted
           playsInline
           preload="auto"
-          fetchPriority={fetchPriority}
+          {...{ fetchPriority }}
           className="absolute inset-0 h-full w-full object-cover mix-blend-screen opacity-60 transition-all duration-700 ease-out hover:scale-105"
         />
       ) : (

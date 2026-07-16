@@ -91,12 +91,11 @@ export default function Hero({ preloaderDone }: { preloaderDone: boolean }) {
           initial={{ opacity: 0, y: 20 }}
           animate={preloaderDone ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          className="grid grid-cols-2 gap-3 sm:gap-3.5 lg:hidden"
-          style={{ gridTemplateRows: "repeat(5, 140px)" }}
+          className="grid grid-cols-2 gap-4 auto-rows-auto lg:hidden"
         >
-          <div className="col-span-1 row-span-1"><SyncActivityBox /></div>
-          <div className="col-span-1 row-span-1"><EfficiencyChartBox /></div>
-          <div className="col-span-2 row-span-1 h-[200px]">
+          <div className="col-span-1 row-span-1 min-h-[140px]"><SyncActivityBox /></div>
+          <div className="col-span-1 row-span-1 min-h-[140px]"><EfficiencyChartBox /></div>
+          <div className="col-span-2 row-span-1">
             <CoreEngineBox mouse={mouse} active={heroActive} reducedMotion={reducedMotion} />
           </div>
           <div className="col-span-1 row-span-1"><WorkflowBox /></div>
@@ -105,7 +104,7 @@ export default function Hero({ preloaderDone }: { preloaderDone: boolean }) {
           <div className="col-span-1 row-span-1"><AutomationNodesBox /></div>
           <div className="col-span-1 row-span-1"><AnalyticsBox /></div>
           <div className="col-span-1 row-span-1"><SecurityBox /></div>
-          <div className="col-span-2 row-span-1 h-[200px]">
+          <div className="col-span-2 row-span-1">
             <DashboardPreviewBox mouse={mouse} active={heroActive} reducedMotion={reducedMotion} />
           </div>
         </motion.div>
@@ -149,7 +148,7 @@ export default function Hero({ preloaderDone }: { preloaderDone: boolean }) {
           <div className="flex items-center justify-between p-6 px-8 relative z-10">
             <p className="text-white font-sans text-sm md:text-base font-normal tracking-wide leading-relaxed relative z-10">
               <span className="text-white font-bold underline decoration-white/30 underline-offset-4">Oryntis</span> unifies finance, HR, sales, and operations into one
-              intelligent layer — <span className="text-zinc-100 font-semibold">automating</span> the busywork and giving your team <span className="text-purple-100 font-medium">real-time visibility</span>.
+              intelligent layer - <span className="text-zinc-100 font-semibold">automating</span> the busywork and giving your team <span className="text-purple-100 font-medium">real-time visibility</span>.
             </p>
           </div>
         </motion.div>
