@@ -26,7 +26,7 @@ function FAQItem({ q, a }: { q: string; a: string }) {
       <button
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
-        className="flex w-full items-center justify-between gap-4 py-6 text-left"
+        className="flex w-full items-center justify-between gap-4 py-6 text-left cursor-pointer transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-inset rounded-lg"
       >
         <span className="text-base font-medium text-foreground sm:text-lg">{q}</span>
         <motion.span

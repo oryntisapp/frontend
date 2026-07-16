@@ -141,7 +141,7 @@ export default function Pricing() {
               <Button
                 variant={tier.highlighted ? "primary" : "ghost"}
                 className="mt-8 w-full"
-                onClick={() => document.getElementById("docs")?.scrollIntoView({ behavior: "smooth" })}
+                onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
               >
                 {tier.cta}
               </Button>

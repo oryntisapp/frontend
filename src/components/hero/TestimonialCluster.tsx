@@ -41,13 +41,15 @@ export default function TestimonialCluster() {
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
             onClick={() => handleNavigate(i)}
           >
-            <img
-              src={t.img}
-              alt={`Testimonial ${i + 1}`}
-              className="w-full h-full rounded-full object-cover"
-              loading="lazy"
-              decoding="async"
-            />
+          <img
+            src={t.img}
+            alt={`Testimonial ${i + 1}`}
+            className="w-full h-full rounded-full object-cover"
+            loading="lazy"
+            decoding="async"
+            width={64}
+            height={64}
+          />
 
             {/* Absolute Progress Ring Overlay */}
             <svg className="absolute inset-0 w-full h-full -rotate-90 pointer-events-none">

@@ -15,7 +15,7 @@ const COLUMNS = [
     ],
   },
   { title: "Resources", links: [{ label: "Pricing", href: "/#pricing" }, { label: "Blog", href: "/blog" }] },
-  { title: "Contact", links: [{ label: "hello@oryntisapp.com", href: "mailto:hello@oryntisapp.com" }, { label: "525 Market St, San Francisco, CA", href: "/#contact" }, { label: "+1 (415) 555-2117", href: "tel:+14155552117" }] },
+  { title: "Contact", links: [{ label: "contact@oryntisapp.com", href: "mailto:contact@oryntisapp.com" }, { label: "525 Market St, San Francisco, CA", href: "/#contact" }, { label: "+1 (415) 555-2117", href: "tel:+14155552117" }] },
 ];
 
 const SOCIALS = [
@@ -64,14 +64,14 @@ export default function Footer() {
 
       <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 border-t border-border px-6 py-8 text-xs text-foreground-muted sm:flex-row lg:px-8">
         <div className="flex items-center gap-2">
-          <img src={logoFull} alt="Oryntis" className="h-9 w-auto" />
+          <img src={logoFull} alt="Oryntis" className="h-9 w-auto" loading="eager" decoding="async" width={144} height={36} />
           <span>&copy; {new Date().getFullYear()} Oryntis. All rights reserved.</span>
         </div>
         <div className="flex items-center gap-6">
           <Link to="/privacy" className="hover:text-foreground">Privacy Policy</Link>
           <Link to="/terms" className="hover:text-foreground">Terms &amp; Conditions</Link>
           <div className="flex items-center gap-3">
-            <a href="mailto:hello@oryntisapp.com" aria-label="Email us" className="hover:text-foreground"><Mail className="h-4 w-4" /></a>
+            <a href="mailto:contact@oryntisapp.com" aria-label="Email us" className="hover:text-foreground"><Mail className="h-4 w-4" /></a>
             {SOCIALS.map((s) => (
               <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer" aria-label={s.label} className="hover:text-foreground"><s.icon className="h-4 w-4" /></a>
             ))}

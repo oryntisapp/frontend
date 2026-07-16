@@ -40,13 +40,13 @@ export default function CookieConsent() {
           <div className="mt-4 flex gap-3">
             <button
               onClick={() => respond("rejected")}
-              className="flex-1 rounded-lg border border-border px-4 py-2 text-xs font-medium text-foreground transition-colors hover:border-border-hover hover:bg-surface"
+              className="flex-1 rounded-lg border border-border px-4 py-2 text-xs font-medium text-foreground transition-colors hover:border-border-hover hover:bg-surface cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500"
             >
               Decline
             </button>
             <button
               onClick={() => respond("accepted")}
-              className="flex-1 rounded-lg bg-accent px-4 py-2 text-xs font-medium text-white transition-colors hover:bg-accent-bright"
+              className="flex-1 rounded-lg bg-accent px-4 py-2 text-xs font-medium text-white transition-colors hover:bg-accent-bright cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500"
             >
               Accept
             </button>

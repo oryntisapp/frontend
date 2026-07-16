@@ -27,8 +27,8 @@ export default function Home() {
       <WhoItsFor />
       <About />
       <Testimonials />
-      <Contact />
       <PlatformShowcase />
+      <Contact />
       <FinalCTA />
     </>
   );

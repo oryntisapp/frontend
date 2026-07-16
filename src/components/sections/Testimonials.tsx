@@ -94,6 +94,9 @@ export default function Testimonials() {
                   alt={current.name}
                   className="h-full w-full object-contain object-center"
                   loading="lazy"
+                  decoding="async"
+                  width={400}
+                  height={530}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-background-base/60 via-transparent to-transparent sm:bg-gradient-to-r sm:from-transparent sm:via-transparent sm:to-background-base/40" />
               </div>

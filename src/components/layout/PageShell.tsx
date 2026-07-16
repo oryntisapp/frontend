@@ -12,7 +12,7 @@ export default function PageShell({ children }: { children: ReactNode }) {
   const mouse = useMousePosition();
 
   return (
-    <div className="relative min-h-screen bg-background-base text-foreground">
+    <div className="relative min-h-screen overflow-x-hidden bg-background-base text-foreground">
       <AmbientBlobs />
       <GridOverlay />
       <NoiseOverlay />

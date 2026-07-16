@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import Button from "../ui/Button";
@@ -31,8 +31,6 @@ export default function Hero({ preloaderDone }: { preloaderDone: boolean }) {
   useEffect(() => {
     heroActive.current = isInView;
   }, [isInView]);
-
-  const [cookiesResolved, setCookiesResolved] = useState<"accepted" | "declined" | null>(null);
 
   return (
     <div ref={heroRef} className="relative overflow-hidden pt-16 sm:pt-20">
@@ -197,39 +195,28 @@ export default function Hero({ preloaderDone }: { preloaderDone: boolean }) {
             initial={{ opacity: 0, y: 16 }}
             animate={preloaderDone ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.55, ease: [0.16, 1, 0.3, 1] }}
-            className="flex flex-col items-end gap-5"
+            className="flex flex-col items-end justify-end h-full gap-5"
           >
-            {cookiesResolved === null ? (
-              <div className="max-w-[270px] rounded-2xl border border-border bg-[#17171c] p-4">
-                <p className="mb-3.5 text-xs leading-relaxed text-foreground-muted">
-                  We use cookies to run Oryntis and understand how the platform is used. You can accept
-                  or decline non-essential cookies at any time.
-                </p>
-                <div className="flex gap-2">
-                  <button
-                    onClick={() => setCookiesResolved("declined")}
-                    className="flex-1 rounded-full border border-border py-2 text-xs font-semibold text-foreground-muted transition-colors hover:text-foreground"
-                  >
-                    Decline
-                  </button>
-                  <button
-                    onClick={() => setCookiesResolved("accepted")}
-                    className="flex-1 rounded-full bg-gradient-to-r from-[#b34ff5] to-[#7c2ce0] py-2 text-xs font-semibold text-white"
-                  >
-                    Accept
-                  </button>
-                </div>
+            <div className="max-w-[270px] rounded-2xl border border-purple-500/10 bg-[#17171c]/80 backdrop-blur-md p-4 relative overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.03)] group">
+              <div className="absolute -right-4 -top-4 w-12 h-12 bg-purple-500/10 rounded-full blur-xl transition-all duration-500 group-hover:bg-purple-500/20" />
+              <div className="flex items-center gap-2 mb-2">
+                <div className="w-2 h-2 rounded-full bg-purple-400 animate-pulse shadow-[0_0_8px_rgba(168,85,247,0.7)]" />
+                <span className="font-mono text-[10px] text-purple-300 uppercase tracking-widest font-semibold">
+                  Enterprise Grade
+                </span>
               </div>
-            ) : (
-              <p className="text-xs text-foreground-subtle">
-                Cookie preferences {cookiesResolved}.{" "}
-                <button onClick={() => setCookiesResolved(null)} className="underline hover:text-foreground-muted">
-                  Change
-                </button>
+              <p className="text-xs leading-relaxed text-zinc-400 font-sans">
+                Oryntis infrastructure runs on dedicated, security-hardened background worker groups ensuring compliance with global operations security standards.
               </p>
-            )}
+            </div>
 
-            <TestimonialCluster />
+            <motion.div
+              layout
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              className="w-full flex justify-end"
+            >
+              <TestimonialCluster />
+            </motion.div>
 
           </motion.div>
         </div>

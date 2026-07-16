@@ -145,7 +145,7 @@ export default function DashboardPreview() {
                     transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
                     className="w-64 sm:w-72"
                   >
-                    <img src={dashboardCharacter} alt="" className="w-full" />
+                    <img src={dashboardCharacter} alt="" className="w-full" loading="lazy" decoding="async" width={288} height={192} />
                   </motion.div>
                 </div>
 

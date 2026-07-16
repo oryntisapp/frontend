@@ -17,6 +17,10 @@ export default function HeroPortrait({ mouse }: { mouse: MousePosition }) {
         src={portrait}
         alt="Person wearing a next-generation operations headset"
         className="h-full w-full object-contain object-center [mask-image:linear-gradient(to_bottom,black_78%,transparent_98%)]"
+        loading="eager"
+        decoding="async"
+        width={400}
+        height={600}
         draggable={false}
       />
       <motion.div className="pointer-events-none absolute inset-0 mix-blend-screen" style={{ background: glow }} />

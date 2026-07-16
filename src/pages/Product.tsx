@@ -65,7 +65,7 @@ export default function Product() {
                 Oryntis OS brings strategy, operations, and execution into one experience so teams can move faster without losing control.
               </p>
               <div className="mt-8 flex flex-wrap items-center gap-4">
-                <Button variant="primary" href="https://app.oryntisapp.com" icon={<ArrowRight className="h-4 w-4" />}>
+                <Button variant="primary" href="https://app.oryntisapp.com" icon={<ArrowRight className="h-4 w-4" />} target="_blank" rel="noopener noreferrer">
                   Open the live product
                 </Button>
                 <Button variant="ghost" to="/" icon={<ArrowRight className="h-4 w-4" />}>
@@ -249,7 +249,7 @@ export default function Product() {
                 </div>
               </div>
               <div className="mt-6 flex flex-wrap gap-3">
-                <Button variant="primary" href="https://app.oryntisapp.com" icon={<ArrowRight className="h-4 w-4" />}>
+                <Button variant="primary" href="https://app.oryntisapp.com" icon={<ArrowRight className="h-4 w-4" />} target="_blank" rel="noopener noreferrer">
                   Launch the platform
                 </Button>
                 <Button variant="ghost" to="/" icon={<ArrowRight className="h-4 w-4" />}>

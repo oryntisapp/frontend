@@ -16,13 +16,16 @@ const CompactRobotCanvas = lazy(() => import("../hero3d/CompactRobotCanvas"));
 function Tile({
   children,
   className = "",
+  style,
 }: {
   children: React.ReactNode;
   className?: string;
+  style?: React.CSSProperties;
 }) {
   return (
     <div
       className={`group relative overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.03] ${className}`}
+      style={style}
     >
       {children}
     </div>
@@ -64,6 +67,8 @@ function MediaCard({
           loading={fetchPriority === "high" ? "eager" : "lazy"}
           decoding="async"
           fetchPriority={fetchPriority}
+          width={600}
+          height={400}
           className="absolute inset-0 h-full w-full object-cover mix-blend-screen opacity-60 transition-all duration-700 ease-out hover:scale-105"
         />
       )}
@@ -109,7 +114,7 @@ export function CoreEngineBox({
   return (
     <Tile className="flex h-full flex-col p-4">
       <div className="flex items-center justify-between">
-        <span className="font-mono text-[10px] uppercase tracking-widest text-accent">AI Orchestration Engine</span>
+        <span className="font-mono text-xs text-purple-400 tracking-wider uppercase">Smart Orchestration Engine</span>
         <span className="h-1.5 w-1.5 rounded-full bg-accent shadow-[0_0_8px_2px_rgba(177,62,217,0.5)]" aria-hidden="true" />
       </div>
       <div className="relative flex-1 overflow-hidden rounded-xl backdrop-blur-sm bg-zinc-950/20">
@@ -146,12 +151,14 @@ export function AlertResolvedBox() {
 
 export function WorkflowBox() {
   return (
-    <Tile className="bg-[#000000] flex flex-col items-center justify-center p-6 h-full hover:border-purple-500/40 hover:shadow-[0_0_20px_rgba(168,85,247,0.1)] transition-all duration-300">
+    <Tile className="bg-black border border-purple-500/20 rounded-xl relative overflow-hidden flex flex-col items-center justify-center p-6 h-full hover:border-purple-500/40 hover:shadow-[0_0_20px_rgba(168,85,247,0.1)] transition-all duration-300" style={{ backgroundColor: '#000000' }}>
       <img
         src={processGif}
         alt="Process workflow animation"
         loading="lazy"
         decoding="async"
+        width={64}
+        height={64}
         className="w-16 h-16 object-contain mx-auto"
       />
       <span className="mt-2 font-mono text-[10px] uppercase tracking-wider text-foreground-muted">
@@ -163,12 +170,14 @@ export function WorkflowBox() {
 
 export function SyncBox() {
   return (
-    <Tile className="bg-[#000000] flex flex-col items-center justify-center p-6 h-full hover:border-purple-500/40 hover:shadow-[0_0_20px_rgba(168,85,247,0.1)] transition-all duration-300">
+    <Tile className="bg-black border border-purple-500/20 rounded-xl relative overflow-hidden flex flex-col items-center justify-center p-6 h-full hover:border-purple-500/40 hover:shadow-[0_0_20px_rgba(168,85,247,0.1)] transition-all duration-300" style={{ backgroundColor: '#000000' }}>
       <img
         src={syncGif}
         alt="Sync animation"
         loading="lazy"
         decoding="async"
+        width={64}
+        height={64}
         className="w-16 h-16 object-contain mx-auto"
       />
       <span className="mt-2 font-mono text-[10px] uppercase tracking-wider text-foreground-muted">
@@ -180,12 +189,14 @@ export function SyncBox() {
 
 export function AnalyticsBox() {
   return (
-    <Tile className="bg-[#000000] flex flex-col items-center justify-center p-6 h-full hover:border-purple-500/40 hover:shadow-[0_0_20px_rgba(168,85,247,0.1)] transition-all duration-300">
+    <Tile className="bg-black border border-purple-500/20 rounded-xl relative overflow-hidden flex flex-col items-center justify-center p-6 h-full hover:border-purple-500/40 hover:shadow-[0_0_20px_rgba(168,85,247,0.1)] transition-all duration-300" style={{ backgroundColor: '#000000' }}>
       <img
         src={analyticsGif}
         alt="Analytics dashboard animation"
         loading="lazy"
         decoding="async"
+        width={64}
+        height={64}
         className="w-16 h-16 object-contain mx-auto"
       />
       <span className="mt-2 font-mono text-[10px] uppercase tracking-wider text-foreground-muted">
@@ -197,12 +208,14 @@ export function AnalyticsBox() {
 
 export function SecurityBox() {
   return (
-    <Tile className="bg-[#000000] flex flex-col items-center justify-center p-6 h-full hover:border-purple-500/40 hover:shadow-[0_0_20px_rgba(168,85,247,0.1)] transition-all duration-300">
+    <Tile className="bg-black border border-purple-500/20 rounded-xl relative overflow-hidden flex flex-col items-center justify-center p-6 h-full hover:border-purple-500/40 hover:shadow-[0_0_20px_rgba(168,85,247,0.1)] transition-all duration-300" style={{ backgroundColor: '#000000' }}>
       <img
         src={securityGif}
         alt="Security animation"
         loading="lazy"
         decoding="async"
+        width={64}
+        height={64}
         className="w-16 h-16 object-contain mx-auto"
       />
       <span className="mt-2 font-mono text-[10px] uppercase tracking-wider text-foreground-muted">

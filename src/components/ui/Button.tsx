@@ -22,7 +22,7 @@ type ButtonProps = BaseProps &
   );
 
 const BASE =
-  "group relative inline-flex items-center justify-center gap-2 rounded-lg font-medium isolate overflow-hidden transition-[border-color,box-shadow] duration-300 ease-in-out focus-visible:outline-accent";
+  "group relative inline-flex items-center justify-center gap-2 rounded-lg font-medium isolate overflow-hidden transition-[border-color,box-shadow] duration-300 ease-in-out cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2 focus-visible:ring-offset-background-base";
 
 const STYLES: Record<Variant, string> = {
   primary:

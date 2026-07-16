@@ -91,6 +91,8 @@ export default function Pillars() {
                 alt=""
                 loading="lazy"
                 decoding="async"
+                width={800}
+                height={600}
                 className="absolute inset-0 h-full w-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.06]"
               />
               <div className="absolute inset-0" style={{ background: s.wash }} />

@@ -42,6 +42,9 @@ export default function PlatformShowcase() {
               alt="Oryntis operations intelligence platform illustration"
               className="aspect-[4/5] w-full object-contain object-center"
               loading="lazy"
+              decoding="async"
+              width={600}
+              height={750}
             />
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background-base/70 via-transparent to-transparent" />
           </div>

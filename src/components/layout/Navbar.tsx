@@ -123,8 +123,8 @@ export default function Navbar() {
         className="fixed inset-x-0 top-0 z-50 border-b"
       >
         <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6 lg:px-8">
-          <Link to="/" className="flex items-center gap-2 text-foreground" aria-label="Oryntis home">
-            <img src={logoFull} alt="Oryntis" className="h-10 w-auto" />
+          <Link to="/" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="flex items-center gap-2 text-foreground" aria-label="Oryntis home">
+            <img src={logoFull} alt="Oryntis" className="h-10 w-auto" loading="eager" decoding="async" width={160} height={40} />
           </Link>
 
           <ul className="hidden items-center gap-9 md:flex">
@@ -140,6 +140,7 @@ export default function Navbar() {
                   <li key={link.label}>
                     <Link
                       to={link.href}
+                      onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
                       className={`group relative text-[13px] font-medium tracking-wide transition-colors ${
                         isActive ? "text-foreground" : "text-foreground-muted hover:text-foreground"
                       }`}

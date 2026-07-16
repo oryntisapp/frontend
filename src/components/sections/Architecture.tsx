@@ -237,8 +237,8 @@ export default function Architecture() {
                     <div className="absolute right-0 top-[26px] h-px w-16 bg-gradient-to-l from-accent/30 to-transparent transition-all duration-300 group-hover:from-accent/70" />
                     <div className="rounded-xl border border-border bg-background-elevated/60 p-5 transition-all duration-300 hover:border-accent/40 hover:shadow-[0_0_24px_-6px_rgba(177,62,217,0.25)]">
                       <div className="flex items-start gap-4">
-                        <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-lg border border-border/60 bg-background p-2.5 transition-transform duration-300 group-hover:scale-110">
-                           <img src={phase.left.img} alt={phase.left.label} className="h-full w-full object-contain invert brightness-200 contrast-200" />
+                        <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-lg border border-border/60 bg-background p-1 transition-transform duration-300 group-hover:scale-110">
+                           <img src={phase.left.img} alt={phase.left.label} className="h-full w-full object-contain brightness-0 invert-[34%] sepia-[75%] saturate-[2588%] hue-rotate-[255deg] brightness-[98%] contrast-[96%] drop-shadow-[0_0_8px_rgba(168,85,247,0.4)]" loading="lazy" decoding="async" width={56} height={56} />
                         </div>
                         <div className="min-w-0">
                           <p className="text-sm font-semibold text-foreground">{phase.left.label}</p>
@@ -262,8 +262,8 @@ export default function Architecture() {
                     <div className="absolute left-0 top-[26px] h-px w-16 bg-gradient-to-r from-accent/30 to-transparent transition-all duration-300 group-hover:from-accent/70" />
                     <div className="rounded-xl border border-border bg-background-elevated/60 p-5 transition-all duration-300 hover:border-accent/40 hover:shadow-[0_0_24px_-6px_rgba(177,62,217,0.25)]">
                       <div className="flex items-start gap-4">
-                        <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-lg border border-border/60 bg-background p-2.5 transition-transform duration-300 group-hover:scale-110">
-                           <img src={phase.right.img} alt={phase.right.label} className="h-full w-full object-contain invert brightness-200 contrast-200" />
+                        <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-lg border border-border/60 bg-background p-1 transition-transform duration-300 group-hover:scale-110">
+                           <img src={phase.right.img} alt={phase.right.label} className="h-full w-full object-contain brightness-0 invert-[34%] sepia-[75%] saturate-[2588%] hue-rotate-[255deg] brightness-[98%] contrast-[96%] drop-shadow-[0_0_8px_rgba(168,85,247,0.4)]" loading="lazy" decoding="async" width={56} height={56} />
                         </div>
                         <div className="min-w-0">
                           <p className="text-sm font-semibold text-foreground">{phase.right.label}</p>
@@ -292,8 +292,8 @@ export default function Architecture() {
                       )}
                       <div className="flex-1 rounded-xl border border-border bg-background-elevated/60 p-4 transition-all duration-300 hover:border-accent/40 hover:shadow-[0_0_20px_-6px_rgba(177,62,217,0.2)]">
                         <div className="flex items-start gap-3">
-                          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-border/60 bg-background p-2 transition-transform duration-300 group-hover:scale-110">
-                             <img src={item.img} alt={item.label} className="h-full w-full object-contain invert brightness-200 contrast-200" />
+                           <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-border/60 bg-background p-0.5 transition-transform duration-300 group-hover:scale-110">
+                               <img src={item.img} alt={item.label} className="h-full w-full object-contain brightness-0 invert-[34%] sepia-[75%] saturate-[2588%] hue-rotate-[255deg] brightness-[98%] contrast-[96%] drop-shadow-[0_0_8px_rgba(168,85,247,0.4)]" loading="lazy" decoding="async" width={40} height={40} />
                           </div>
                           <div className="min-w-0">
                             <p className="text-sm font-semibold text-foreground">{item.label}</p>

@@ -79,6 +79,7 @@ export default function Contact() {
                     id="contact-name"
                     name="name"
                     type="text"
+                    required
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     className={`mt-1.5 w-full rounded-xl border bg-white/[0.03] px-4 py-3 text-sm text-foreground outline-none transition-colors placeholder:text-foreground-subtle focus:border-accent focus:ring-1 focus:ring-accent/30 ${
@@ -98,6 +99,7 @@ export default function Contact() {
                     id="contact-email"
                     name="email"
                     type="email"
+                    required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     className={`mt-1.5 w-full rounded-xl border bg-white/[0.03] px-4 py-3 text-sm text-foreground outline-none transition-colors placeholder:text-foreground-subtle focus:border-accent focus:ring-1 focus:ring-accent/30 ${
@@ -117,6 +119,7 @@ export default function Contact() {
                     id="contact-company"
                     name="company"
                     type="text"
+                    required
                     value={company}
                     onChange={(e) => setCompany(e.target.value)}
                     className={`mt-1.5 w-full rounded-xl border bg-white/[0.03] px-4 py-3 text-sm text-foreground outline-none transition-colors placeholder:text-foreground-subtle focus:border-accent focus:ring-1 focus:ring-accent/30 ${
@@ -136,6 +139,7 @@ export default function Contact() {
                     id="contact-message"
                     name="message"
                     rows={4}
+                    required
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                     className={`mt-1.5 w-full resize-none rounded-xl border bg-white/[0.03] px-4 py-3 text-sm text-foreground outline-none transition-colors placeholder:text-foreground-subtle focus:border-accent focus:ring-1 focus:ring-accent/30 ${
@@ -190,8 +194,8 @@ export default function Contact() {
               </div>
               <div className="flex items-start gap-3">
                 <Mail className="mt-0.5 h-4 w-4 shrink-0 text-accent" strokeWidth={1.75} />
-                <a href="mailto:hello@oryntisapp.com" className="text-sm text-foreground-muted transition-colors hover:text-foreground">
-                  hello@oryntisapp.com
+                <a href="mailto:contact@oryntisapp.com" className="text-sm text-foreground-muted transition-colors hover:text-foreground">
+                  contact@oryntisapp.com
                 </a>
               </div>
               <div className="flex items-start gap-3">
