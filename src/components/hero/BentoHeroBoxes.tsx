@@ -1,4 +1,3 @@
-import { Suspense, lazy } from "react";
 import type { MousePosition } from "../../hooks/useMousePosition";
 
 import liveSync from "../../assets/images/hero/Live Sync.svg";
@@ -11,7 +10,7 @@ import analyticsGif from "../../assets/images/hero/Analytics.gif";
 import securityGif from "../../assets/images/hero/Security.gif";
 
 import CoreEngineInfinity from "./CoreEngineInfinity";
-const CompactRobotCanvas = lazy(() => import("../hero3d/CompactRobotCanvas"));
+import CompactRobotCanvas from "../hero3d/CompactRobotCanvas";
 
 function Tile({
   children,
@@ -235,16 +234,14 @@ export function DashboardPreviewBox({
   reducedMotion: boolean;
 }) {
   return (
-    <Tile className="relative flex flex-col items-center justify-between pb-12 h-full p-0">
-      <Suspense
-        fallback={
-          <div className="flex h-full w-full items-center justify-center">
-            <div className="h-20 w-12 animate-pulse rounded-xl border border-white/10 bg-white/[0.02]" />
-          </div>
-        }
-      >
+    <Tile className="relative flex flex-col items-center justify-between pb-12 h-full min-h-[220px] lg:min-h-[260px] overflow-hidden p-0">
+      <div className="relative w-full h-full flex items-center justify-center">
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+          <div className="w-24 h-24 rounded-full bg-purple-500/10 animate-pulse blur-xl" />
+        </div>
+
         <CompactRobotCanvas mouse={mouse} active={active} reducedMotion={reducedMotion} />
-      </Suspense>
+      </div>
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 w-32 h-4 bg-black/40 rounded-full blur-md pointer-events-none mix-blend-multiply animate-[shadowSync_4s_easeInOut_infinite]" />
     </Tile>
   );
